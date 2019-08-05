@@ -44,8 +44,8 @@ export default class SpriteAnimation extends Component {
         this.animationQueue = [];
         this.animationIndex = 0;
         this.animationState = AnimationStatusEnumType.STATE_UNINITED;
-
         this.imageLoader = new ImageLoader();
+
         this.initSpriteAnimation();
     }
 
@@ -62,16 +62,15 @@ export default class SpriteAnimation extends Component {
             } else {
                 // 图片预加载不成功做降级处理，贴本地图片
             }
-            console.log(data);
+            // console.log(data);
             this.startAnimation();
         })
     }
 
     handleImageData(imageList) {
-        imageList.map((item, index) => {
+        imageList.forEach((item) => {
             const imageWidth = item.img.width,
                 imageHeight = item.img.height;
-            console.log(imageWidth + ' ' + imageHeight);
             const columns = Math.floor(imageWidth / this.frameWidth);
             const rows = Math.floor(imageHeight / this.frameHeight);
             item.columns = columns;
@@ -79,7 +78,19 @@ export default class SpriteAnimation extends Component {
             item.frameCount = columns * rows;
             item.frameDuration = this.frameDuration;
             this.animationQueue.push(item);
-        })
+        });
+        // imageList.map((item) => {
+        //     const imageWidth = item.img.width,
+        //         imageHeight = item.img.height;
+        //     console.log(imageWidth + ' ' + imageHeight);
+        //     const columns = Math.floor(imageWidth / this.frameWidth);
+        //     const rows = Math.floor(imageHeight / this.frameHeight);
+        //     item.columns = columns;
+        //     item.rows = rows;
+        //     item.frameCount = columns * rows;
+        //     item.frameDuration = this.frameDuration;
+        //     this.animationQueue.push(item);
+        // })
     }
 
     startAnimation() {
