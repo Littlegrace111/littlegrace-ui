@@ -79,7 +79,7 @@ class Banner extends Component {
     }
 
     static defaultProps = {
-        imgList: [],
+        // imgList: [],
         width: 625,
         height: 270
     }

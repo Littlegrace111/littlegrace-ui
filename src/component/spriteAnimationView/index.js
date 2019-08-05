@@ -51,7 +51,6 @@ export default class SpriteAnimation extends Component {
 
     initSpriteAnimation() {
         const { frameImgList } = this.props;
-        console.log('initSpriteAnimation', frameImgList);
         if(!frameImgList || frameImgList.length === 0) {
             throw new RangeError('frameImgList is empty');
         }
@@ -79,18 +78,6 @@ export default class SpriteAnimation extends Component {
             item.frameDuration = this.frameDuration;
             this.animationQueue.push(item);
         });
-        // imageList.map((item) => {
-        //     const imageWidth = item.img.width,
-        //         imageHeight = item.img.height;
-        //     console.log(imageWidth + ' ' + imageHeight);
-        //     const columns = Math.floor(imageWidth / this.frameWidth);
-        //     const rows = Math.floor(imageHeight / this.frameHeight);
-        //     item.columns = columns;
-        //     item.rows = rows;
-        //     item.frameCount = columns * rows;
-        //     item.frameDuration = this.frameDuration;
-        //     this.animationQueue.push(item);
-        // })
     }
 
     startAnimation() {
@@ -190,6 +177,7 @@ export default class SpriteAnimation extends Component {
 
         return (
             <Logo
+                className='haha cccc'
                 width={frameWidth}
                 height={frameHeight}
                 imgPic={currentImage}

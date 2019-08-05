@@ -128,10 +128,10 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.addXiaoYunComponent()}
+				{/* {this.addXiaoYunComponent()} */}
 				<div className='animation-wrapper'>
 					{/* {this.addXiaoKuBaoAnimComponent()} */}
-					{this.addXiaoYunAsisAnimComponent()}
+					{/* {this.addXiaoYunAsisAnimComponent()} */}
 				</div>
 			</div>
 		)

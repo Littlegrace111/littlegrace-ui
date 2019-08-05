@@ -47,7 +47,7 @@ class Animation {
     }
 
     changeImage(src, callback) {
-        
+
     }
 
     enterFrame() {
@@ -66,6 +66,26 @@ class Animation {
 
     }
 
+    requestAnimationFrame() {
+        return ( window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            ((callback) => {
+                return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
+            })
+        );
+    }
+
+    cancelAnimationFrame() {
+        return ( window.cancelAnimationFrame ||
+            window.webkitCancelAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            ((id) => {
+                return window.clearTimeout(id);
+            })
+        );
+    }
 }
 
 export default Animation;
