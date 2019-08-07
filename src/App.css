@@ -7,10 +7,14 @@
   padding: 10px;
 }
 
-.listview-wrapper {
+.HomePage {
   width: 90%;
   margin: 20px auto;
   /* background: grey; */
+}
+
+.home-header {
+  /* background: green; */
 }
 
 .App-logo {
