@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import ImageLoader from './AnimationManager/imageLoader'
+// import ImageLoader from './AnimationManager/imageLoader'
 
 // const imageArray = [
 //     'https://img.alicdn.com/tfs/TB1FJY9b7T2gK0jSZPcXXcKkpXa-1465-309.png',

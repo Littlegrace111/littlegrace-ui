@@ -1,10 +1,16 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .title {
   font-size: 20px;
   padding: 10px;
+}
+
+.listview-wrapper {
+  width: 90%;
+  margin: 20px auto;
+  /* background: grey; */
 }
 
 .App-logo {

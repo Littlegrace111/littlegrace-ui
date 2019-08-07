@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import Banner from './component/gallery'
-import SpriteAnimationView from './component/spriteAnimationView'
+import SpriteAnimationView from './component/spriteView'
+import ListView from './component/listview'
+import { listData } from './component/listview//mockData'
+import TabView from './component/tabview'
+import MonthPicker from './component/monthSelectView'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
 	addBannerComponent() {
@@ -47,12 +52,6 @@ class App extends Component {
 	}
 
 	addXiaoYunAsisAnimComponent() {
-		// const imageArray = [
-		// 	// 'https://img.alicdn.com/tfs/TB1FJY9b7T2gK0jSZPcXXcKkpXa-1465-309.png',//asr
-		// 	// 'https://img.alicdn.com/tfs/TB1p0H7b.H1gK0jSZSyXXXtlpXa-1465-168.png',//thinking
-		// 	'https://img.alicdn.com/tfs/TB1l0r7b.H1gK0jSZSyXXXtlpXa-1465-822.png',//start
-		// 	// 'https://img.alicdn.com/tfs/TB1FPj8bYr1gK0jSZR0XXbP8XXa-1465-383.png',//tts
-		// ];
 		const thinkImg = ['https://img.alicdn.com/tfs/TB1p0H7b.H1gK0jSZSyXXXtlpXa-1465-168.png'];
 		const ttsImg = ['https://img.alicdn.com/tfs/TB1FPj8bYr1gK0jSZR0XXbP8XXa-1465-383.png'];
 		const asrImg = ['https://img.alicdn.com/tfs/TB1FJY9b7T2gK0jSZPcXXcKkpXa-1465-309.png'];
@@ -125,14 +124,37 @@ class App extends Component {
 		)
 	}
 
+	onTabChange = (currentTabName) => {
+		console.log(currentTabName);
+	}
+
 	render() {
 		return (
 			<div className="App">
-				{/* {this.addXiaoYunComponent()} */}
+				{/* {this.addBannerComponent()} */}
 				<div className='animation-wrapper'>
 					{/* {this.addXiaoKuBaoAnimComponent()} */}
+					{/* {this.addXiaoYunComponent()} */}
 					{/* {this.addXiaoYunAsisAnimComponent()} */}
 				</div>
+				<div className="listview-wrapper">
+					<MonthPicker 
+						year={2018}
+						month={8}
+						onChange={(year, month) => { console.log(year, month) }}
+					/>
+					<TabView 
+						activeTab={'list'}
+						onTabChange={(currentTabName) => {console.log(currentTabName)}}
+					/>
+					<ListView
+						itemList={listData}
+						onModifyItem={(item) => console.log(item)}
+						onDeleteItem={(item) => console.log(item)}
+					/>
+					
+				</div>
+
 			</div>
 		)
 	}

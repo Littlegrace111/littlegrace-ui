@@ -17,11 +17,12 @@ class ImageLoader {
     loadImage(images, callback) {
         images.map((item, index) => {
             // console.log(item, index);
-            item = {src: item};
-            item.img = new Image();
-            item.id = index;
-            this.imageList.push(item);
+            item = {src: item}
+            item.img = new Image()
+            item.id = index
+            this.imageList.push(item)
             this.doImgLoad(item, callback);
+            return this.imageList;
         })
     }
 
