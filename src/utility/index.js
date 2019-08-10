@@ -21,3 +21,15 @@ export const parseToYearAndMonth = (str) => {
         month: date.getMonth() + 1
     }
 }
+
+export const isValidDate = (dateStr) => {
+    const regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if(!dateStr.match(regEx))   
+        return false // Invaild format
+    const d = new Date(dateStr)
+    console.log('d', d.toISOString().slice(0, 10)) // not a number
+    if(Number.isNaN(d.getTime()))
+        return false // Invaild date
+    
+    return d.toISOString().slice(0, 10) === dateStr
+}

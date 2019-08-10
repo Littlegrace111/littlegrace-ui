@@ -16,7 +16,7 @@ const priceList = [
         "id": 2,
         "title": "本月理财收入",
         "price": 200,
-        "date": "2018-09-10",
+        "date": "2018-08-10",
         "cid": "2"
     },
     {
@@ -41,24 +41,42 @@ const tabList = [
 
 // 每个条目的类型
 const categoryList = {
-    "1": { 
-        "cid": "1",
+    "1": {
         "name": "旅游",
         "type": "outcome",
         "iconName": "ios-plane"
     },
     "2": {
-        "cid": "2",
         "name": "理财",
         "type": "income",
         "iconName": "md-flame"
     },
     "3": {
-        "cid": "3",
         "name": "吃饭",
         "type": "outcome",
         "iconName": "md-cafe"
     }
 }
 
-export { priceList, tabList, categoryList }
+const categories = [
+    {
+        "id": "1",
+        "name": "旅行",
+        "type": "outcome",
+        "iconName": "ios-plane"
+    },
+    {
+        "id": "2",
+        "name": "理财",
+        "type": "income",
+        "iconName": "logo-yen"
+    },
+    {
+        "id": "3",
+        "name": "饮料",
+        "type": "outcome",
+        "iconName": "ios-cafe"
+    }
+]
+
+export { priceList, tabList, categoryList, categories }

@@ -33,7 +33,7 @@ const ListView = ({itemList, onDeleteItem, onModifyItem}) => {
                             </span>
                             <span className="col-2">{item.date}</span>
                             <a className="col-1 btn"
-                                href='/'
+                                href='#/'
                                 onClick={() => {onModifyItem(item)}}>
                                 <Ionicon 
                                     icon="md-add-circle"
@@ -42,7 +42,7 @@ const ListView = ({itemList, onDeleteItem, onModifyItem}) => {
                                 />
                             </a>
                             <a className="col-1 btn"
-                                href='/'
+                                href='#/'
                                 onClick={() => {onDeleteItem(item)}}>
                                 <Ionicon 
                                     icon="md-close-circle"
