@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import Ionicon from 'react-ionicons'
 import ListView from '../../component/listview'
-import TabView from '../../component/tabview'
+// import TabView from '../../component/tabview'
+import TabView, { Tab } from '../../component/tabViewV2'
 import MonthPicker from '../../component/monthPicker'
 import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
@@ -22,16 +24,16 @@ class HomePage extends Component {
         this.state = {
             priceList: priceList,
             currentYearMonth: parseToYearAndMonth(),
-            currentTab: 'list'
+            currentTabIndex: 0
         }
 
         this.baseLine = priceList.length; // 防止createItem id 冲突
     }
 
-    tabChange = (currentTabName) => {
-        console.log(currentTabName);
+    tabChange = (tabIndex) => {
+        console.log(tabIndex);
         this.setState({
-            currentTab: currentTabName
+            currentTabIndex: tabIndex
         })
     }
 
@@ -82,7 +84,7 @@ class HomePage extends Component {
 
     render() {
         // priceList 里面保存category的外键cid, 减少数据的冗余，实现数据重用
-        const { priceList, currentTab, currentYearMonth } = this.state
+        const { priceList, currentTabIndex, currentYearMonth } = this.state
         // 重新组合priceList和category
         const priceListWithCategory = priceList.map((item) => {
             // map 不会改变原数组，函数式编程，会返回一个新数组
@@ -118,18 +120,35 @@ class HomePage extends Component {
                     />
                 </div>
                 <div className="listview-wrapper">
-                    <TabView
+                    {/* <TabView
                         activeTab={currentTab}
                         onTabChange={(currentTabName) => { this.tabChange(currentTabName) }}
-                    />
-                    { currentTab === 'list' &&
+                    /> */}
+                    <TabView
+                        onTabChange={(selectedTabIndex) => { this.tabChange(selectedTabIndex) }}>
+                        <Tab>
+                            <Ionicon
+                                icon="md-list-box"
+                                fontSize="30px"
+                                color={currentTabIndex === 0 ? '#495057' : '#007bff'} />
+                            <span>列表模式</span>
+                        </Tab>
+                        <Tab>
+                            <Ionicon
+                                icon="md-pie"
+                                fontSize="30px"
+                                color={currentTabIndex === 1 ? '#495057' : '#007bff'} />
+                            <span>图标模式</span>
+                        </Tab>
+                    </TabView>
+                    { currentTabIndex === 0 &&
                         <ListView
                             itemList={priceListWithCategory}
                             onModifyItem={(item) => this.modifyItem(item)}
                             onDeleteItem={(item) => this.deleteItem(item)}
                         />
                     }
-                    { currentTab === 'chart' &&
+                    { currentTabIndex === 1 &&
                         <h4>这是图表</h4>
                     }
                     <CreateBtn 
