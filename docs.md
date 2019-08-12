@@ -29,7 +29,9 @@
 2. tabview 单元测试 (done)
 3. 改造Home页tabs组件 (done)
 4. monthPicker 组件的单元测试 (done)
-5. 完善Home页面 根据日期filter的功能 
+5. 完善Home页面 根据日期filter的功能 (done)
 6. 添加Home页面单元测试 
-7. 完善create页面的CategorySelect组件 
+7. 完善CategorySelect组件 
+8. 完善Create页面的功能 
+9. 添加Create页面的单元测试
 

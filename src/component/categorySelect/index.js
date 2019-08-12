@@ -21,23 +21,30 @@ class CategorySelect extends Component {
     render() {
         const { categoryList } = this.props
         const { selectCategroyId } = this.state
-        
+
         return (
-            <div className="row">
-            {
-                categoryList.map( item => (
-                    <div className={`col ${(item.id === selectCategroyId ? 'category-item active' : 'category-item')} `}
-                        key={item.id}
-                        onClick={() => {this.selectCategroy(item)}}>
-                        <Ionicon
-                            icon={item.iconName}
-                            fontSize="40px"
-                            className="rounded-circle "
-                        />
-                        <div>{item.name}</div>
-                    </div>
-                ))
-            }   
+            <div className="row align-items-center">
+                {
+                    categoryList.map(item => {
+                        const backgroundColor = (item.id === selectCategroyId) ? '#007bff' : 'grey'
+                        return (
+                            <div className={`col-2 ${(item.id === selectCategroyId ? 'category-item active' : 'category-item')} `}
+                                key={item.id}
+                                role="button"
+                                style={{ textAlign: 'center' }}
+                                onClick={() => { this.selectCategroy(item) }}>
+                                <Ionicon
+                                    icon={item.iconName}
+                                    fontSize="50px"
+                                    className="rounded-circle"
+                                    color="white"
+                                    style={{ backgroundColor: backgroundColor, padding: '5px' }}
+                                />
+                                <div>{item.name}</div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         )
     }

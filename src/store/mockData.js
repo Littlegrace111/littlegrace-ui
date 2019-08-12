@@ -76,6 +76,24 @@ const categories = [
         "name": "饮料",
         "type": "outcome",
         "iconName": "ios-cafe"
+    },
+    {
+        "id": "4",
+        "name": "餐饮",
+        "iconName": "ios-restaurant",
+        "type": "outcome"
+    },
+    {
+        "id": "5",
+        "name": "工资",
+        "type": "income",
+        "iconName": "ios-card"
+    },
+    {
+        "id": "6",
+        "name": "兼职",
+        "type": "income",
+        "iconName": "ios-cash"
     }
 ]
 
