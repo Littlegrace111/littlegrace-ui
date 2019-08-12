@@ -1,3 +1,5 @@
+import generate from "@babel/generator";
+
 export const TAB_LIST = 'tab/list';
 export const TAB_CHART = 'tab/chart';
 
@@ -11,6 +13,12 @@ export const rangeArr = (base, start = 0, size) => {
         numberArr.push(base + start + i)
     }
     return numberArr;
+}
+
+// 从当前时间的年份往前推10年
+export const generateYearArr = () => {
+    const date = new Date()
+    return rangeArr(date.getFullYear(), -9, 10)
 }
 
 // 传入日期str解析年月，不传则解析当前年月

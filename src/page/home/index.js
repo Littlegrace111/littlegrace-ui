@@ -8,6 +8,7 @@ import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
 import { parseToYearAndMonth } from '../../utility'
 import { priceList, categoryList } from '../../store/mockData'
+import { padLeft } from '../../utility'
 
 /**
  * State最小设计原则：DRY don't repeat yourself
@@ -79,23 +80,35 @@ class HomePage extends Component {
 
     onChangeDate = (year, month) => {
         console.log('onChangeDate', year, month)
-        
+        this.setState({
+            currentYearMonth: { year, month }
+        })
+        // const currentDate = year + '-' + padLeft(month) 
+        // const priceListWithSelectedDate = priceList.filter(item => item.date.indexOf(currentDate) !== -1)
+        // console.log(priceListWithSelectedDate)
     }
 
     render() {
         // priceList 里面保存category的外键cid, 减少数据的冗余，实现数据重用
         const { priceList, currentTabIndex, currentYearMonth } = this.state
+        // 根据当前日期过滤priceList
+        const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
+        const targetPriceList = priceList.filter(item => item.date.indexOf(currentDate) !== -1)
         // 重新组合priceList和category
-        const priceListWithCategory = priceList.map((item) => {
-            // map 不会改变原数组，函数式编程，会返回一个新数组
-            const newItem = {...item};
-            newItem.category = categoryList[item.cid]
-            // item.category = categoryList[item.cid] // 此操作已经改变了原数组
-            return newItem
+        targetPriceList.forEach( item => {
+            item.category = categoryList[item.cid]
         })
+        // const priceListWithCategory = priceList.map((item) => {
+        //     // map 不会改变原数组，函数式编程，会返回一个新数组
+        //     const newItem = {...item};
+        //     newItem.category = categoryList[item.cid]
+        //     // item.category = categoryList[item.cid] // 此操作已经改变了原数组
+        //     return newItem
+        // })
+
         // 收入和支出可以通过priceList计算得到，不需要另外设计到state里面，保证state最小合集
         let totalInCome = 0, totalOutCome = 0;
-        priceListWithCategory.forEach(item => {
+        targetPriceList.forEach(item => {
             // forEach 会改变原数组，适合只读操作
             if(item.category.type === 'income') {
                 totalInCome += item.price
@@ -143,7 +156,7 @@ class HomePage extends Component {
                     </TabView>
                     { currentTabIndex === 0 &&
                         <ListView
-                            itemList={priceListWithCategory}
+                            itemList={targetPriceList}
                             onModifyItem={(item) => this.modifyItem(item)}
                             onDeleteItem={(item) => this.deleteItem(item)}
                         />
