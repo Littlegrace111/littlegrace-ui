@@ -1,5 +1,5 @@
 import React, { Component, Fragment} from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 // 展示型组件有状态模板
 class TabViews extends Component {

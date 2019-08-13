@@ -1,5 +1,3 @@
-import generate from "@babel/generator";
-
 export const TAB_LIST = 'tab/list';
 export const TAB_CHART = 'tab/chart';
 
@@ -56,4 +54,8 @@ export const flattenArr = (arr) => {
         origin[item.id] = item
         return origin
     }, {})
+}
+
+export const ID = () => {
+    return '_' + Math.random().toString(36).substr(2, 9);
 }

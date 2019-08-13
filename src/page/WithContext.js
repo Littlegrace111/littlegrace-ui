@@ -9,8 +9,10 @@ const withContext = (Component) => {
     // 返回一个functional的组件
     return (props) => (
         <AppContext.Consumer>
-            {({ state }) => {
-                return <Component {...props} data={ state } />
+            {({ state, actions }) => {
+                return <Component {...props} 
+                            data={ state } 
+                            actions={ actions } />
             }}
         </AppContext.Consumer>
     )

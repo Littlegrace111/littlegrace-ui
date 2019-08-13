@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react'
-import PropType from 'prop-types'
+import React, { Component } from 'react'
+// import PropType from 'prop-types'
 import Ionicon from 'react-ionicons'
 
 class CategorySelect extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectCategroyId: props.selectCategory && props.selectCategory.id
+            selectCategroyId: props.selectCId
         }
     }
 
@@ -15,7 +15,7 @@ class CategorySelect extends Component {
         this.setState({
             selectCategroyId: selectCategroy.id
         })
-        this.props.onSelectCategory(selectCategroy)
+        this.props.onSelectCategory(selectCategroy.id)
     }
 
     render() {
@@ -23,12 +23,12 @@ class CategorySelect extends Component {
         const { selectCategroyId } = this.state
 
         return (
-            <div className="row align-items-center">
+            <div className="row align-items-center my-5">
                 {
                     categoryList.map(item => {
                         const backgroundColor = (item.id === selectCategroyId) ? '#007bff' : 'grey'
                         return (
-                            <div className={`col-2 ${(item.id === selectCategroyId ? 'category-item active' : 'category-item')} `}
+                            <div className={`col ${(item.id === selectCategroyId ? 'category-item active' : 'category-item')} `}
                                 key={item.id}
                                 role="button"
                                 style={{ textAlign: 'center' }}

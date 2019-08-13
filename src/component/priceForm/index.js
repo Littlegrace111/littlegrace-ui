@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { isValidDate } from '../../utility'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 // 展示型组件模板
 class PriceForm extends Component {

@@ -36,6 +36,9 @@
 ### 20190813 
 1. flatten State (done)
 2. 状态提升 (done)
-3. 高阶组件
+3. 高阶组件 (done)
+4. 改造Home
+5. 改造Create 
+    - 考虑没有选择category的错误处理
 
 

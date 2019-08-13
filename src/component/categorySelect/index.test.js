@@ -23,7 +23,7 @@ const props = {
 
 const props_with_select = {
     categoryList: categories,
-    selectCategory: categories[0],
+    selectCId: categories[0].id,
     onSelectCategory: jest.fn(),
 }
 describe('test CategorySelect Component', () => {

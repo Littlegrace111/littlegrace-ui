@@ -82,7 +82,7 @@ class MonthPicker extends Component {
     
 
     render() {
-        const { year, month } = this.props
+        const { month } = this.props
         const { selectedYear, isToggle } = this.state
         return (
             <div className="dropdown" ref={(ref) => {this.domNode = ref}}>
