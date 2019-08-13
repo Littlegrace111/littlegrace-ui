@@ -13,8 +13,8 @@
 
 ## Create页面
 1. 表单提交组件PriceForm
-    1.1 PriceForm编写 (done)
-    1.2 单元测试(done)
+    - PriceForm编写 (done)  
+    - 单元测试(done)  
 2. 重构TabView 组件 :是的tab组件更加灵活，可扩展
 ```jsx
 <TabView 

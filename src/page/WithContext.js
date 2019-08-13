@@ -1,6 +1,5 @@
 import React from 'react'
-
-export const AppContext = React.createContext()
+import { AppContext } from '../App'
 /**
  * HOC 高阶组件
  * 高阶组件是一个函数
