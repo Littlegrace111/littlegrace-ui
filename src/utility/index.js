@@ -41,3 +41,19 @@ export const isValidDate = (dateStr) => {
     
     return d.toISOString().slice(0, 10) === dateStr
 }
+
+/**
+ * array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+ * total 必需，初始值和计算后返回值
+ * currentValue 必需，当前元素
+ * currentIndex 可选，当前元素索引
+ * arr 可选，当前元素所属数组
+ * initialValue 可选，传递给函数的初始值，相当于total初始值
+ * @param {Array} arr 
+ */
+export const flattenArr = (arr) => {
+    return arr.reduce((origin, item) => {
+        origin[item.id] = item
+        return origin
+    }, {})
+}

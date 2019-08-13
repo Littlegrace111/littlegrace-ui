@@ -31,7 +31,11 @@
 4. monthPicker 组件的单元测试 (done)
 5. 完善Home页面 根据日期filter的功能 (done)
 6. 添加Home页面单元测试 
-7. 完善CategorySelect组件 
-8. 完善Create页面的功能 
-9. 添加Create页面的单元测试
+7. 完善CategorySelect组件 (done)
+
+### 20190813 
+1. flatten State
+2. 状态提升
+3. 高阶组件
+
 

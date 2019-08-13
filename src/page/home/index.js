@@ -9,6 +9,7 @@ import CreateBtn from '../../component/createBtn'
 import { parseToYearAndMonth } from '../../utility'
 import { priceList, categoryList } from '../../store/mockData'
 import { padLeft } from '../../utility'
+import { AppContext } from '../../App'
 
 /**
  * State最小设计原则：DRY don't repeat yourself
@@ -94,6 +95,7 @@ class HomePage extends Component {
         // 根据当前日期过滤priceList
         const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
         const targetPriceList = priceList.filter(item => item.date.indexOf(currentDate) !== -1)
+        console.log(targetPriceList)
         // 重新组合priceList和category
         targetPriceList.forEach( item => {
             item.category = categoryList[item.cid]
@@ -107,9 +109,11 @@ class HomePage extends Component {
         // })
 
         // 收入和支出可以通过priceList计算得到，不需要另外设计到state里面，保证state最小合集
+        console.log(targetPriceList)
         let totalInCome = 0, totalOutCome = 0;
         targetPriceList.forEach(item => {
             // forEach 会改变原数组，适合只读操作
+            console.log(item.category)
             if(item.category.type === 'income') {
                 totalInCome += item.price
             } else {
@@ -118,57 +122,64 @@ class HomePage extends Component {
         })
 
         return (
-            <div className="Page">
-                <div className="home-header d-flex
-                    justify-content-between
-                    align-items-center">
-                    <MonthPicker
-                        year={currentYearMonth.year}
-                        month={currentYearMonth.month}
-                        onChange={this.onChangeDate}
-                    />
-                    <PriceCount
-                        inCome={totalInCome}
-                        outCome={totalOutCome}
-                    />
-                </div>
-                <div className="listview-wrapper">
-                    {/* <TabView
-                        activeTab={currentTab}
-                        onTabChange={(currentTabName) => { this.tabChange(currentTabName) }}
-                    /> */}
-                    <TabView
-                        onTabChange={(selectedTabIndex) => { this.tabChange(selectedTabIndex) }}>
-                        <Tab>
-                            <Ionicon
-                                icon="md-list-box"
-                                fontSize="30px"
-                                color={currentTabIndex === 0 ? '#495057' : '#007bff'} />
-                            <span>列表模式</span>
-                        </Tab>
-                        <Tab>
-                            <Ionicon
-                                icon="md-pie"
-                                fontSize="30px"
-                                color={currentTabIndex === 1 ? '#495057' : '#007bff'} />
-                            <span>图标模式</span>
-                        </Tab>
-                    </TabView>
-                    { currentTabIndex === 0 &&
-                        <ListView
-                            itemList={targetPriceList}
-                            onModifyItem={(item) => this.modifyItem(item)}
-                            onDeleteItem={(item) => this.deleteItem(item)}
-                        />
-                    }
-                    { currentTabIndex === 1 &&
-                        <h4>这是图表</h4>
-                    }
-                    <CreateBtn 
-                        onCreateItem={this.createItem}
-                    />
-                </div>
-            </div>
+            <AppContext.Consumer>
+                {({ state }) => {
+                    console.log(state)
+                    return (
+                        <div className="Page">
+                            <div className="home-header d-flex
+                                justify-content-between
+                                align-items-center">
+                                <MonthPicker
+                                    year={currentYearMonth.year}
+                                    month={currentYearMonth.month}
+                                    onChange={this.onChangeDate}
+                                />
+                                <PriceCount
+                                    inCome={totalInCome}
+                                    outCome={totalOutCome}
+                                />
+                            </div>
+                            <div className="listview-wrapper">
+                                {/* <TabView
+                                    activeTab={currentTab}
+                                    onTabChange={(currentTabName) => { this.tabChange(currentTabName) }}
+                                /> */}
+                                <TabView
+                                    onTabChange={(selectedTabIndex) => { this.tabChange(selectedTabIndex) }}>
+                                    <Tab>
+                                        <Ionicon
+                                            icon="md-list-box"
+                                            fontSize="30px"
+                                            color={currentTabIndex === 0 ? '#495057' : '#007bff'} />
+                                        <span>列表模式</span>
+                                    </Tab>
+                                    <Tab>
+                                        <Ionicon
+                                            icon="md-pie"
+                                            fontSize="30px"
+                                            color={currentTabIndex === 1 ? '#495057' : '#007bff'} />
+                                        <span>图标模式</span>
+                                    </Tab>
+                                </TabView>
+                                { currentTabIndex === 0 &&
+                                    <ListView
+                                        itemList={targetPriceList}
+                                        onModifyItem={(item) => this.modifyItem(item)}
+                                        onDeleteItem={(item) => this.deleteItem(item)}
+                                    />
+                                }
+                                { currentTabIndex === 1 &&
+                                    <h4>这是图表</h4>
+                                }
+                                <CreateBtn 
+                                    onCreateItem={this.createItem}
+                                />
+                            </div>
+                        </div>
+                    )
+                }}
+            </AppContext.Consumer>
         )
     }
 }
