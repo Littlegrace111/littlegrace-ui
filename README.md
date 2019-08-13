@@ -1,68 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Home页面
+1. 账本条目展示组件：<PriceList />
+2. tabView组件（组件设计）
+``` jsx
+<TabView 
+    activeTab={targetTab}
+    onTabChange={(currentTab) => {}} />
+```
+3. monthPicker
+4. priceCount
+5. createBtn
+6. HomePage
 
-## Available Scripts
+## Create页面
+1. 表单提交组件PriceForm
+    1.1 PriceForm编写 (done)
+    1.2 单元测试(done)
+2. 重构TabView 组件 :是的tab组件更加灵活，可扩展
+```jsx
+<TabView 
+    tabList={}
+    activeTabIndex={}  // 可不传，默认第一个
+    onSelectTab={(selectedTabIndex) => {}/>
+```
+> 使用React.children 重构可扩展tabview组件
 
-In the project directory, you can run:
+### 20190811-20190812 工作
+1. 重构tabview (done)
+2. tabview 单元测试 (done)
+3. 改造Home页tabs组件 (done)
+4. monthPicker 组件的单元测试 (done)
+5. 完善Home页面 根据日期filter的功能 (done)
+6. 添加Home页面单元测试 
+7. 完善CategorySelect组件 (done)
 
-### `npm start`
+### 20190813 
+1. flatten State (done)
+2. 状态提升 (done)
+3. 高阶组件
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
