@@ -6,7 +6,7 @@ import TabView, { Tab } from '../../component/tabViewV2'
 import MonthPicker from '../../component/monthPicker'
 import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
-import { parseToYearAndMonth } from '../../utility'
+// import { parseToYearAndMonth } from '../../utility'
 // import { priceList, categoryList } from '../../store/mockData'
 import { padLeft } from '../../utility'
 import WithContext from '../WithContext'
@@ -24,12 +24,10 @@ class HomePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            // priceList: priceList,
-            currentYearMonth: parseToYearAndMonth(),
+            // currentYearMonth: parseToYearAndMonth(),
             currentTabIndex: 0
         }
         // this.combineItemsAndCategories()
-        // this.baseLine = priceList.length; // 防止createItem id 冲突
     }
 
     combineItemsAndCategories() {
@@ -39,6 +37,10 @@ class HomePage extends Component {
             items[id].category = categories[items[id].cid]
             return items[id]
         })
+    }
+
+    componentDidMount() {
+        this.props.actions.getInitialData()
     }
 
     tabChange = (tabIndex) => {
@@ -76,30 +78,29 @@ class HomePage extends Component {
         // this.setState({
         //     priceList: filterPriceList
         // })
+        this.props.actions.deleteItem(deleteItem)
     }
 
     onChangeDate = (year, month) => {
         console.log('onChangeDate', year, month)
-        this.setState({
-            currentYearMonth: { year, month }
-        })
+        this.props.actions.selectNewMonth(year, month)
     }
 
     render() {
-        const { items, categories } = this.props.data
-        const { currentTabIndex, currentYearMonth } = this.state
+        const { items, categories, currentYearMonth } = this.props.data
+        const { currentTabIndex } = this.state
         
         let itemsWithCategory = Object.keys(items).map( id => {
             const newItem = {
                 ...items[id],
                 category: categories[items[id].cid]
             }
-            // items[id].category = categories[items[id].cid] // react immutable 思想，
             return newItem
         })
+
         // 根据当前日期过滤items
-        const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
-        itemsWithCategory = itemsWithCategory.filter(item => item.date.indexOf(currentDate) !== -1)
+        // const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
+        // itemsWithCategory = itemsWithCategory.filter(item => item.date.indexOf(currentDate) !== -1)
         
         let totalInCome = 0, totalOutCome = 0;
         itemsWithCategory.forEach(item => {

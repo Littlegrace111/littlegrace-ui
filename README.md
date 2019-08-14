@@ -24,7 +24,7 @@
 ```
 > 使用React.children 重构可扩展tabview组件
 
-### 20190811-20190812 工作
+### 20190811-20190812
 1. 重构tabview (done)
 2. tabview 单元测试 (done)
 3. 改造Home页tabs组件 (done)
@@ -37,8 +37,20 @@
 1. flatten State (done)
 2. 状态提升 (done)
 3. 高阶组件 (done)
-4. 改造Home
+4. 改造Home (done)
 5. 改造Create 
     - 考虑没有选择category的错误处理
 
-
+### 20190814
+1. 前后端分离
+2. mock server
+3. 设计后端接口
+    - /items - GET, POST
+    - /items/{id} - GET, PUT, DELETE
+    - /items?monthCategory=2018-08&_sort=timestamp - GET (查询 query)
+    - /categories - GET, POST
+4. 采用json-server mock 后端数据
+5. create-react-app 提供proxy来支持dev模式下的跨域
+6. 提升selectYearAndMonth
+7. getIntialData
+8. create, modify, delete

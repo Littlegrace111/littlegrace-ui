@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "title": "理财收入",
+      "price": 300,
+      "date": "2018-11-15",
+      "monthCategory": "2018-11",
+      "id": "_qryggm5y8",
+      "cid": "12",
+      "timestamp": 1534291200000
+    },
+    {
+      "title": "舟山东海音乐节",
+      "price": 720,
+      "date": "2019-09-07",
+      "type": "outcome",
+      "cid": "1",
+      "id": "_9dnmd1gnp",
+      "monthCategory": "2019-9",
+      "timestamp": 1567814400
+    },
+    {
+      "title": "舟山朱家尖",
+      "price": 620,
+      "date": "2019-09-08",
+      "type": "outcome",
+      "cid": "1",
+      "id": "_qk8bh9elu",
+      "monthCategory": "2019-9",
+      "timestamp": 1567900800
+    }
+  ],
+  "categories": [
+    {
+      "name": "旅行",
+      "iconName": "ios-plane",
+      "id": "1",
+      "type": "outcome"
+    },
+    {
+      "name": "餐饮",
+      "iconName": "ios-restaurant",
+      "id": "2",
+      "type": "outcome"
+    },
+    {
+      "name": "购物",
+      "iconName": "ios-basket",
+      "id": "3",
+      "type": "outcome"
+    },
+    {
+      "name": "数码",
+      "iconName": "ios-phone-portrait",
+      "id": "4",
+      "type": "outcome"
+    },
+    {
+      "name": "工资",
+      "iconName": "ios-card",
+      "id": "10",
+      "type": "income"
+    },
+    {
+      "name": "兼职",
+      "iconName": "ios-cash",
+      "id": "11",
+      "type": "income"
+    },
+    {
+      "name": "理财",
+      "iconName": "logo-yen",
+      "id": "12",
+      "type": "income"
+    }
+  ]
+}
