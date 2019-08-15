@@ -51,6 +51,8 @@
     - /categories - GET, POST
 4. 采用json-server mock 后端数据
 5. create-react-app 提供proxy来支持dev模式下的跨域
-6. 提升selectYearAndMonth
-7. getIntialData
-8. create, modify, delete
+6. 提升selectYearAndMonth (done)
+7. getIntialData (done)
+8. create, modify, delete (done)
+9. async await 改造 Promise 异步流程
+10. add Loading (高阶函数 -> 高阶组件的本质)

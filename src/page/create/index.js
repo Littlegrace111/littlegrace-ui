@@ -2,29 +2,35 @@ import React, { Component } from 'react'
 import TabView, { Tab } from '../../component/tabViewV2'
 import CategorySelect from '../../component/categorySelect'
 import PriceForm from '../../component/priceForm'
+import Loader from '../../component/Loader'
 // import { priceList, categories } from '../../store/mockData'
 import WithContext from '../WithContext'
 
 class CreatePage extends Component {
     constructor(props) {
         super(props)
-        const { id } = this.props.match && this.props.match.params
-        const { items, categories } = this.props.data
         this.state = {
-            selectCategoryId: (id && items[id])? items[id].cid : null,
-            selectTabType: (id && items[id])? categories[items[id].cid].type : 'income',
-            editMode: (id && items[id])? true : false
+            selectCategoryId: null,
+            selectTabType: 'income',
+            editItem: null
         }
     }
 
-    // getCId() {
-    //     const { id } = this.props.match && this.props.match.params
-    //     return id ? this.props.data.items[id].cid : null
-    // }
-
-    // getTabType(cid) {
-    //     return cid ? this.props.data.categories[cid].type : 'income'
-    // }
+    componentDidMount() {
+        const { id } = this.props.match && this.props.match.params
+        // const { categories } = this.props.data
+        this.props.actions.getEditData(id).then( editItem => {
+            console.log('componentDidMount', editItem)
+            const { categories } = this.props.data
+            if(editItem) {
+                this.setState({
+                    selectCategoryId: editItem.cid,
+                    selectTabType: categories[editItem.cid].type,
+                    editItem: { ...editItem }
+                })
+            }
+        })
+    }
 
     static tabList = [
         {
@@ -43,17 +49,25 @@ class CreatePage extends Component {
 
     formSubmit = (data) => {
         console.log('formSubmit', data)
-        const { selectTabType, selectCategoryId, editMode } = this.state
-        if(editMode) {
-            const { id } = this.props.match && this.props.match.params
+        const { selectTabType, selectCategoryId } = this.state
+        const { id } = this.props.match && this.props.match.params
+        if(id) { 
             this.props.actions.updateItem({...data, type: selectTabType, cid: selectCategoryId}, id)
+                .then( result => {
+                    console.log(result)
+                    this.props.history.push('/')
+                })
         } else {
             this.props.actions.createItem({...data, type: selectTabType, cid: selectCategoryId})
+                .then( result => {
+                    console.log(result)
+                    this.props.history.push('/')
+                })
         }
-        this.props.history.push('/')
     }
 
-    tabChange = (index) => {
+    tabChange = (event, index) => {
+        event.preventDefault()
         console.log('tabChange', index)
         this.setState({
             selectTabType: CreatePage.tabList[index].tabType
@@ -68,13 +82,15 @@ class CreatePage extends Component {
     }
 
     render() {
-        const { id } = this.props.match && this.props.match.params
-        const { items, categories } = this.props.data
-        const { selectTabType, selectCategoryId, editMode } = this.state
+        const { categories, isLoading } = this.props.data
+        const { selectTabType, selectCategoryId, editItem } = this.state
+
+        // 根据tab筛选category
         const filterCategories = Object.keys(categories)
                                     .filter( id => categories[id].type === selectTabType )
                                     .map( id => categories[id] )
         const selectedTabIndex = CreatePage.tabList.findIndex(item => item.tabType === selectTabType)
+        console.log(selectedTabIndex)
         return (
             <div className="Page">
                 <TabView 
@@ -86,13 +102,14 @@ class CreatePage extends Component {
                        })
                     }
                 </TabView>
+                { isLoading && <Loader /> }
                 <CategorySelect
                     categoryList={filterCategories}
                     selectCId={selectCategoryId}
                     onSelectCategory={this.selectCategory}
                 />
                 <PriceForm
-                    editItem={editMode ? items[id] : null}
+                    editItem={editItem}
                     onCancelSubmit={this.cancelSubmit}
                     onFormSubmit={this.formSubmit}
                 />

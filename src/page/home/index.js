@@ -6,9 +6,9 @@ import TabView, { Tab } from '../../component/tabViewV2'
 import MonthPicker from '../../component/monthPicker'
 import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
-// import { parseToYearAndMonth } from '../../utility'
+import Loader from '../../component/Loader'
+// import { parseToYearAndMonth, padLeft } from '../../utility'
 // import { priceList, categoryList } from '../../store/mockData'
-import { padLeft } from '../../utility'
 import WithContext from '../WithContext'
 
 /**
@@ -24,26 +24,16 @@ class HomePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            // currentYearMonth: parseToYearAndMonth(),
             currentTabIndex: 0
         }
-        // this.combineItemsAndCategories()
-    }
-
-    combineItemsAndCategories() {
-        // 组合items和category
-        const { items, categories } = this.props.data
-        this.itemsWithCategory = Object.keys(items).map( id => {
-            items[id].category = categories[items[id].cid]
-            return items[id]
-        })
     }
 
     componentDidMount() {
         this.props.actions.getInitialData()
     }
 
-    tabChange = (tabIndex) => {
+    tabChange = (event, tabIndex) => {
+        event.preventDefault()
         console.log(tabIndex);
         this.setState({
             currentTabIndex: tabIndex
@@ -56,28 +46,10 @@ class HomePage extends Component {
     }
 
     modifyItem = (modifyItem) => {
-        // console.log('modifyItem', modifyItem)
-        // 函数式编程返回一个新数组
-        // const modifyPriceList = this.state.priceList.map( item => {
-        //     if(item.id === modifyItem.id) {
-        //         return {...item, title: '我更新了'}
-        //     } else {
-        //         return item
-        //     }
-        // })
-        // this.setState({
-        //     priceList: modifyPriceList
-        // })
         this.props.history.push(`/edit/${modifyItem.id}`)
     }
 
     deleteItem = (deleteItem) => {
-        console.log('deleteItem', deleteItem)
-        // const filterPriceList = this.state.priceList.filter( item => item.id !== deleteItem.id)
-        // console.log(filterPriceList)
-        // this.setState({
-        //     priceList: filterPriceList
-        // })
         this.props.actions.deleteItem(deleteItem)
     }
 
@@ -87,7 +59,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const { items, categories, currentYearMonth } = this.props.data
+        const { items, categories, currentYearMonth, isLoading } = this.props.data
         const { currentTabIndex } = this.state
         
         let itemsWithCategory = Object.keys(items).map( id => {
@@ -128,7 +100,8 @@ class HomePage extends Component {
                 </div>
                 <div className="listview-wrapper">
                     <TabView
-                        onTabChange={(selectedTabIndex) => { this.tabChange(selectedTabIndex) }}>
+                        activeTabIndex={currentTabIndex}
+                        onTabChange={this.tabChange}>
                         <Tab>
                             <Ionicon
                                 icon="md-list-box"
@@ -144,6 +117,7 @@ class HomePage extends Component {
                             <span>图标模式</span>
                         </Tab>
                     </TabView>
+                    { isLoading && <Loader /> }
                     { currentTabIndex === 0 &&
                         <ListView
                             itemList={itemsWithCategory}

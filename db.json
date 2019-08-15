@@ -28,6 +28,36 @@
       "id": "_qk8bh9elu",
       "monthCategory": "2019-9",
       "timestamp": 1567900800
+    },
+    {
+      "title": "和姐们吃饭",
+      "price": 300,
+      "date": "2019-08-14",
+      "type": "outcome",
+      "cid": "2",
+      "monthCategory": "2019-8",
+      "timestamp": 1565740800,
+      "id": "_byer1gome"
+    },
+    {
+      "title": "8月份工资",
+      "price": 10000,
+      "date": "2019-08-01",
+      "type": "income",
+      "cid": "10",
+      "id": "_5sy6k1wq6",
+      "monthCategory": "2019-8",
+      "timestamp": 1564617600
+    },
+    {
+      "title": "hello world",
+      "price": 1000,
+      "date": "2019-08-09",
+      "type": "income",
+      "cid": "12",
+      "id": "_4w3hvobrw",
+      "monthCategory": "2019-8",
+      "timestamp": 1565308800
     }
   ],
   "categories": [

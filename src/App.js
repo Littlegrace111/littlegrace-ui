@@ -16,37 +16,64 @@ class App extends Component {
 		this.state = {
 			items: {},
 			categories: {},
-			currentYearMonth: parseToYearAndMonth('2018-08-11'),
+			currentYearMonth: parseToYearAndMonth(),
+			isLoading: false
 		}
+
+		// 高阶函数: 入参传递一个函数，返回一个新的函数
+		const withLoading = (callback) => {
+			return ( ...args ) => {
+				this.setState({
+					isLoading: true
+				})
+				return callback( ...args )
+			}
+		}
+
 		this.actions = {
-			getInitialData: () => {
+			// 使用 async await 改造promise
+			getInitialData: withLoading( async () => {
 				const {year, month } = this.state.currentYearMonth
 				const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`
-				const promiseArr = [ axios.get('/categories'), axios.get(getItemURLWithQuery) ]
-				Promise.all(promiseArr).then( arrays => {
-					console.log(arrays)
-					const [ categories, itemsWithFilter ] = arrays
-					this.setState({
-						items: flattenArr(itemsWithFilter.data),
-						categories: flattenArr(categories.data)
-					})
+				const arrays = await Promise.all([ axios.get('/categories'), axios.get(getItemURLWithQuery) ])
+				// console.log(arrays)
+				const [ categories, itemsWithFilter ] = arrays
+				this.setState({
+					items: flattenArr(itemsWithFilter.data),
+					categories: flattenArr(categories.data),
+					isLoading: false
 				})
-			},
+			}),
 
-			selectNewMonth: (year, month) => {
+			selectNewMonth: withLoading( async (year, month) => {
+				this.setState({ items: {} })
 				const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`
-				const promiseArr = [ axios.get(getItemURLWithQuery) ]
-				Promise.all(promiseArr).then( arrays => {
-					const [ itemsWithFilter ] = arrays
-					this.setState({
-						items: flattenArr(itemsWithFilter.data),
-						currentYearMonth: { year, month }
-					})
+				const arrays = await Promise.all([ axios.get(getItemURLWithQuery) ])
+				console.log('selectNewMonth', arrays)
+				const [ itemsWithFilter ] = arrays
+				this.setState({
+					items: flattenArr(itemsWithFilter.data),
+					currentYearMonth: { year, month },
+					isLoading: false
 				})
-			},
+			}),
 
-			createItem: (item) => {
-				console.log('createItem', item)
+			getEditData: withLoading( async (id) => {
+				const promiseArr = [ axios.get('/categories') ]
+				if(id) {
+					promiseArr.push( axios.get(`/items/${id}`))
+				}
+				const resultArr = await Promise.all(promiseArr)
+				console.log(resultArr)
+				const [ categories, editItem ] = resultArr
+				this.setState({
+					categories: flattenArr(categories.data),
+					isLoading: false
+				})
+				return editItem ? editItem.data : null
+			}),
+
+			createItem: withLoading(async (item) => {
 				const newId = ID()
 				item['id'] = newId
 				const parseDate = parseToYearAndMonth(item.date)
@@ -54,46 +81,39 @@ class App extends Component {
 				item['monthCategory'] = monthCategory
 				const date = new Date(item.date)
 				item.timestamp = Math.floor(new Date(date).getTime() / 1000) // 根据时间排序
-				axios.post('/items', item).then( response => {
-					console.log(response)
-					this.setState({
-						items: { ...this.state.items, [newId]: item }
-					})
-				})
+				const result = await axios.post('/items', item)
 				// this.setState({
 				// 	items: { ...this.state.items, [newId]: item }
-				// })
-			},
-			updateItem: (item, id) => {
+				// }) 
+				return result
+			}),
+
+			updateItem: withLoading( async (item, id) => {
 				console.log('updateItem', item, id)
 				const parseDate = parseToYearAndMonth(item.date)
 				const monthCategory = `${parseDate.year}-${parseDate.month}`
 				item['monthCategory'] = monthCategory
 				const date = new Date(item.date)
 				item.timestamp = Math.floor(new Date(date).getTime() / 1000) // 根据时间排序
-				const newItem = {
-					...this.state.items[id],
-					...item
-				}
-				axios.put(`/items/${id}`, newItem).then( response => {
-					console.log(response)
-					this.setState({
-						items: {...this.state.items, [newItem.id] : newItem }
-					})
-				})
+				item.id = id
+				console.log('newItem', item)
+				const result = await axios.put(`/items/${id}`, item)
 				// this.setState({
 				// 	items: {...this.state.items, [newItem.id] : newItem }
 				// })
-			},
-			deleteItem: (item) => {
+				return result
+			}),
+
+			deleteItem: withLoading( async (item) => {
 				axios.delete(`/items/${item.id}`).then( response => {
 					console.log(response)
 					delete this.state.items[item.id]
 					this.setState({
-						items: this.state.items
+						items: this.state.items,
+						isLoading: false
 					})
 				})
-			}
+			})
 		}
 	}
 
