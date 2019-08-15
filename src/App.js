@@ -59,18 +59,32 @@ class App extends Component {
 			}),
 
 			getEditData: withLoading( async (id) => {
-				const promiseArr = [ axios.get('/categories') ]
+				const { categories, items } = this.state
+				const promiseArr = []
+				// 如果categories为空才去请求
+				if(Object.keys(categories).length === 0) {
+					promiseArr.push(axios.get('/categories'))
+				}
+				let editItem = null
 				if(id) {
-					promiseArr.push( axios.get(`/items/${id}`))
+					editItem = items[id] // items 里面找不到指定id项，才去请求
+					!editItem && promiseArr.push( axios.get(`/items/${id}`))
 				}
 				const resultArr = await Promise.all(promiseArr)
 				console.log(resultArr)
-				const [ categories, editItem ] = resultArr
-				this.setState({
-					categories: flattenArr(categories.data),
-					isLoading: false
-				})
-				return editItem ? editItem.data : null
+				const [ fetchedCategories, fetchedEditItem ] = resultArr
+				if(fetchedCategories) {
+					this.setState({
+						categories: flattenArr(fetchedCategories.data),
+						isLoading: false
+					})
+				} else {
+					this.setState({ isLoading : false })
+				}
+				if(fetchedEditItem) {
+					editItem = fetchedEditItem.data
+				}
+				return editItem
 			}),
 
 			createItem: withLoading(async (item) => {

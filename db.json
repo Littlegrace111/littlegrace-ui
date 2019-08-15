@@ -41,13 +41,13 @@
     },
     {
       "title": "8月份工资",
-      "price": 10000,
+      "price": 20000,
       "date": "2019-08-01",
       "type": "income",
       "cid": "10",
-      "id": "_5sy6k1wq6",
       "monthCategory": "2019-8",
-      "timestamp": 1564617600
+      "timestamp": 1564617600,
+      "id": "_5sy6k1wq6"
     },
     {
       "title": "hello world",
@@ -58,6 +58,16 @@
       "id": "_4w3hvobrw",
       "monthCategory": "2019-8",
       "timestamp": 1565308800
+    },
+    {
+      "title": "家教",
+      "price": 1000,
+      "date": "2019-08-13",
+      "type": "income",
+      "cid": "11",
+      "id": "_2bnpjoqrp",
+      "monthCategory": "2019-8",
+      "timestamp": 1565654400
     }
   ],
   "categories": [

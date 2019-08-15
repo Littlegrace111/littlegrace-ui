@@ -54,5 +54,13 @@
 6. 提升selectYearAndMonth (done)
 7. getIntialData (done)
 8. create, modify, delete (done)
-9. async await 改造 Promise 异步流程
-10. add Loading (高阶函数 -> 高阶组件的本质)
+9. async await 改造 Promise 异步流程 （done)
+10. add Loading (高阶函数 -> 高阶组件的本质) (done)
+
+### 20190815
+1. 优化异步流程的调用，减少不必要的请求（目的：节省带宽，减少请求次数）(done)
+2. 容器型组件CreatePage的单元测试
+    - 测试页面的初始行为
+    - 测试新建模式下的行为
+    - 测试编辑模式下的行为
+3. 

@@ -54,13 +54,13 @@ class CreatePage extends Component {
         if(id) { 
             this.props.actions.updateItem({...data, type: selectTabType, cid: selectCategoryId}, id)
                 .then( result => {
-                    console.log(result)
+                    // console.log(result)
                     this.props.history.push('/')
                 })
         } else {
             this.props.actions.createItem({...data, type: selectTabType, cid: selectCategoryId})
                 .then( result => {
-                    console.log(result)
+                    // console.log(result)
                     this.props.history.push('/')
                 })
         }
