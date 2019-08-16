@@ -32,8 +32,7 @@ class HomePage extends Component {
         this.props.actions.getInitialData()
     }
 
-    tabChange = (event, tabIndex) => {
-        event.preventDefault()
+    tabChange = (tabIndex) => {
         console.log(tabIndex);
         this.setState({
             currentTabIndex: tabIndex

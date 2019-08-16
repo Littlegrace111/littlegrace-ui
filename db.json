@@ -68,6 +68,26 @@
       "id": "_2bnpjoqrp",
       "monthCategory": "2019-8",
       "timestamp": 1565654400
+    },
+    {
+      "title": "手机",
+      "price": 4000,
+      "date": "2019-08-07",
+      "type": "outcome",
+      "cid": "4",
+      "id": "_a5zuo3kk4",
+      "monthCategory": "2019-8",
+      "timestamp": 1565136000
+    },
+    {
+      "title": "吃饭",
+      "price": 100,
+      "date": "2019-08-15",
+      "type": "outcome",
+      "cid": "2",
+      "id": "_j0l49fofo",
+      "monthCategory": "2019-8",
+      "timestamp": 1565827200
     }
   ],
   "categories": [

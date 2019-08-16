@@ -12,7 +12,7 @@ const TabViews = ({ children, activeTabIndex, onTabChange }) => {
                             <a className={(activeTabIndex === index ? 'nav-link active' : 'nav-link')}
                                 role="button"
                                 href="#/"
-                                onClick={(event) => onTabChange(event, index)}>
+                                onClick={(event) => { event.preventDefault(); onTabChange && onTabChange(index)} }>
                                 {child}
                             </a>
                         </li>

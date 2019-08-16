@@ -11,6 +11,7 @@
     "react-ionicons": "^2.1.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "recharts": "^1.7.1",
     "styled-components": "^4.3.2"
   },
   "scripts": {

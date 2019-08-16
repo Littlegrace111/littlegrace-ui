@@ -66,8 +66,7 @@ class CreatePage extends Component {
         }
     }
 
-    tabChange = (event, index) => {
-        event.preventDefault()
+    tabChange = (index) => {
         console.log('tabChange', index)
         this.setState({
             selectTabType: CreatePage.tabList[index].tabType
