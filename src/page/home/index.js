@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Ionicon from 'react-ionicons'
 import ListView from '../../component/listview'
 // import TabView from '../../component/tabview'
@@ -7,6 +7,7 @@ import MonthPicker from '../../component/monthPicker'
 import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
 import Loader from '../../component/Loader'
+import PieChart from '../../component/charts'
 // import { parseToYearAndMonth, padLeft } from '../../utility'
 // import { priceList, categoryList } from '../../store/mockData'
 import WithContext from '../WithContext'
@@ -19,6 +20,13 @@ import WithContext from '../WithContext'
  * 4. 价格条目的分类信息和月份信息
  * 5. 当前视图信息(列表模式还是图标模式)
  */
+
+const data = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+];
 
 class HomePage extends Component {
     constructor(props) {
@@ -57,18 +65,36 @@ class HomePage extends Component {
         this.props.actions.selectNewMonth(year, month)
     }
 
+    calculateItems(items, type = 'outcome') {
+        const CategoryMap = {}
+        items.filter( item => item.category.type === type).forEach( item => {
+            if(CategoryMap[item.cid]) { //if have 
+                CategoryMap[item.cid].value += (item.price * 1)
+                CategoryMap[item.cid].items.push(item.id)
+            } else {
+                CategoryMap[item.cid] = {
+                    name: item.category.name,
+                    value: item.price * 1,
+                    items: [item.id]
+                }
+            }
+        })
+        console.log(CategoryMap)
+        return Object.keys(CategoryMap).map( id => ({...CategoryMap[id], id}))
+    }
+
     render() {
         const { items, categories, currentYearMonth, isLoading } = this.props.data
         const { currentTabIndex } = this.state
         
-        let itemsWithCategory = Object.keys(items).map( id => {
+        const itemsWithCategory = Object.keys(items).map( id => {
             const newItem = {
                 ...items[id],
                 category: categories[items[id].cid]
             }
             return newItem
         })
-
+        console.log(this.calculateItems(itemsWithCategory))
         // 根据当前日期过滤items
         // const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
         // itemsWithCategory = itemsWithCategory.filter(item => item.date.indexOf(currentDate) !== -1)
@@ -125,7 +151,18 @@ class HomePage extends Component {
                         />
                     }
                     { currentTabIndex === 1 &&
-                        <h4>这是图表</h4>
+                        <Fragment>
+                            <div className="row text-center">
+                                <div className="col">
+                                    <h5>这是收入</h5>
+                                    <PieChart data={this.calculateItems(itemsWithCategory, 'income')}/>
+                                </div>
+                                <div className="col">
+                                    <h5>这是支出</h5>
+                                    <PieChart data={this.calculateItems(itemsWithCategory, 'outcome')}/>
+                                </div>
+                            </div>
+                        </Fragment>    
                     }
                     <CreateBtn 
                         onCreateItem={this.createItem}

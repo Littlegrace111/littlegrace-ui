@@ -1,4 +1,4 @@
-import { parseToYearAndMonth, isValidDate, generateYearArr, flattenArr } from './index'
+import { parseToYearAndMonth, isValidDate, generateYearArr, flattenArr, calculateItems } from './index'
 import { priceList, categories, categoryList } from '../store/mockData'
 
 test('test parseToYearAndMonth', () => {
@@ -21,4 +21,8 @@ test('test flattenArr', () => {
     console.log(priceMap)
     const categoryMap = flattenArr(categories)
     console.log(categoryMap)
+})
+
+test('test calculateItems', () => {
+    calculateItems()
 })

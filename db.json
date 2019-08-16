@@ -88,6 +88,26 @@
       "id": "_j0l49fofo",
       "monthCategory": "2019-8",
       "timestamp": 1565827200
+    },
+    {
+      "title": "黄金",
+      "price": 1000,
+      "date": "2019-08-01",
+      "type": "income",
+      "cid": "12",
+      "id": "_2x8fuiwfg",
+      "monthCategory": "2019-8",
+      "timestamp": 1564617600
+    },
+    {
+      "title": "舟山东海音乐节",
+      "price": 720,
+      "date": "2019-08-08",
+      "type": "outcome",
+      "cid": "1",
+      "id": "_sgzww96bn",
+      "monthCategory": "2019-8",
+      "timestamp": 1565222400
     }
   ],
   "categories": [

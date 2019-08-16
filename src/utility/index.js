@@ -59,3 +59,21 @@ export const flattenArr = (arr) => {
 export const ID = () => {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
+
+export const calculateItems = (items, type = 'outcome') => {
+    const CategoryMap = {}
+    items.filter( item => item.category.type === type).forEach( item => {
+        if(CategoryMap[item.cid]) { //if have 
+                CategoryMap[item.cid].vaule += (item.price * 1)
+                CategoryMap[item.cid].items.push(item.id)
+        } else {
+            CategoryMap[item.cid] = {
+                name: item.category.name,
+                value: item.price * 1,
+                items: [item.id]
+            }
+        }
+    })
+
+    console.log(CategoryMap)
+}
