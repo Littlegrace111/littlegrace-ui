@@ -1,6 +1,6 @@
 const jsonServer = require('json-server')
 const path = require('path')
-const express = require('express')
+const express = require('express') // json-server 里面已经包含express
 const server = jsonServer.create()
 const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()

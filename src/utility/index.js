@@ -76,4 +76,52 @@ export const calculateItems = (items, type = 'outcome') => {
     })
 
     console.log(CategoryMap)
+    return Object.keys(CategoryMap).map( id => ({...CategoryMap[id], id}))
 }
+
+/**
+ * 函数节流
+ * @param {Function} callback 延迟dalay毫秒后之执行的函数，上下文和所有参数都按照原样传递
+ * @param {Number} delay 对于事件回调，大约100或250毫秒的延迟是最有用的
+ * @param {Boolean} noTrailing 可选，默认false, 
+ *                              noTrailing = true, callback 每隔delay毫秒执行一次
+ *                              noTrailing = false, callback delay毫秒执行一次后清空timeout
+ */
+export const throttle = (callback, delay) => {
+    let lastExec = 0;
+    // 返回一个函数
+    return (...args) => {
+        let elapsed = Number(new Date()) - lastExec;
+        console.log('elapsed = ', elapsed)
+        const exec = () => {
+            lastExec = Number(new Date())
+            console.log('exec')
+            callback(...args)
+        }
+
+        if(elapsed > delay) {
+            exec()
+        }
+    }   
+}
+
+export const throttleV2 = (delay, callback) => {
+    var currentTime = 0
+    return function wrapper() {
+        var self = this
+        var startTime = Number(new Date())
+        var elapsed = startTime - currentTime
+        var args = arguments
+        console.log('wrapper, elapsed = ', elapsed)
+        function exec() {
+            console.log('exec')
+            currentTime = Number(new Date())
+            callback.apply(self, args)
+        }
+
+        if(elapsed > delay) {
+            exec()
+        } 
+    }
+}
+

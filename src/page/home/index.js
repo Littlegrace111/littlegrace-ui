@@ -20,14 +20,6 @@ import WithContext from '../WithContext'
  * 4. 价格条目的分类信息和月份信息
  * 5. 当前视图信息(列表模式还是图标模式)
  */
-
-const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-];
-
 class HomePage extends Component {
     constructor(props) {
         super(props)

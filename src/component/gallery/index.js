@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import MdArrowRoundBack from 'react-ionicons/lib/MdArrowRoundBack'
-import MdArrowRoundForward from 'react-ionicons/lib/MdArrowRoundForward'
+import Ionicon from 'react-ionicons'
+// import MdArrowRoundBack from 'react-ionicons/lib/MdArrowRoundBack'
+// import MdArrowRoundForward from 'react-ionicons/lib/MdArrowRoundForward'
 
 const BannerWrapper = styled.div`
     position: relative;
@@ -273,20 +274,18 @@ class Banner extends Component {
                     <BtnWrapper
                         className='left-btn'
                         onClick={() => this.handleDirectionBtnClick(LEFT_Dir)}>
-                        <MdArrowRoundBack 
+                        <Ionicon
                             icon="md-arrow-round-back"
                             fontSize="30px" 
-                            color="#fff"
-                            />
+                            color="#fff" />
                     </BtnWrapper>
                     <BtnWrapper
                         className='right-btn'
                         onClick={() => this.handleDirectionBtnClick(RIGHT_Dir)}>
-                        <MdArrowRoundForward 
+                        <Ionicon 
                             icon="md-arrow-round-forward"
                             fontSize="30px" 
-                            color="#fff"
-                            />
+                            color="#fff" />
                     </BtnWrapper>
                 </Fragment>
             )

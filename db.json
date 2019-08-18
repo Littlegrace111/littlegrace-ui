@@ -108,6 +108,16 @@
       "id": "_sgzww96bn",
       "monthCategory": "2019-8",
       "timestamp": 1565222400
+    },
+    {
+      "title": "hahah",
+      "price": 23,
+      "date": "2019-08-15",
+      "type": "outcome",
+      "cid": "3",
+      "id": "_qxt27nvs3",
+      "monthCategory": "2019-8",
+      "timestamp": 1565827200
     }
   ],
   "categories": [

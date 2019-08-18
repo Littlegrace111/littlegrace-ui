@@ -44,9 +44,9 @@ table {
 
 /* reset.css done */
 
-.App {
-  background: rgb(202, 199, 199);
-  padding: 20px 0px;
+body {
+  background: rgb(202, 199, 199, 0.2);
+  /* padding: 20px 0px; */
 }
 
 .title {

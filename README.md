@@ -81,5 +81,9 @@
 ## 20190816
 1. 添加主入口测试
 2. 添加recharts库(done)
-3. 生产环境build，本地部署
+3. 生产环境build，本地部署 (done)
+    > 结合json-server和express创建一个web server
+
+## 20190817
+1. 画廊组件的优化
 

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import Banner from './component/gallery'
-import SpriteAnimationView from './component/spriteView'
+import Banner from '../../component/gallery'
+import SpriteAnimationView from '../../component/spriteView'
 
 class AnimationPage extends Component {
 	addBannerComponent() {
@@ -12,7 +12,7 @@ class AnimationPage extends Component {
 
 		return (
 			<Fragment>
-				<div className="title">画廊组件</div>
+				<div className="title text-center">画廊组件</div>
 				<Banner
 					width={800}
 					height={500}
@@ -121,7 +121,7 @@ class AnimationPage extends Component {
 	render() {
 		return (
 			<div className="AnimationPage">
-				{/* {this.addBannerComponent()} */}
+				{this.addBannerComponent()}
 				<div className='animation-wrapper'>
 					{/* {this.addXiaoKuBaoAnimComponent()} */}
 					{/* {this.addXiaoYunComponent()} */}
