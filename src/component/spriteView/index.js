@@ -162,8 +162,8 @@ export default class SpriteAnimation extends Component {
 
     // 这种形式写法：在初始化时就bind(this)了，等同于在构造函数里bind this
     handleSpriteViewClick = (event) => {
-        console.log(this);
-        console.log('handleSpriteViewClick', this.animationState);
+        // console.log(this);
+        // console.log('handleSpriteViewClick', this.animationState);
         if(this.animationState === AnimationStatusEnumType.STATE_STARTED) {
             this.stopAnimation();
         } else if(this.animationState === AnimationStatusEnumType.STATE_PAUSED) {

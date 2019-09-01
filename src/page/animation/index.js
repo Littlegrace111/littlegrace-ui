@@ -121,11 +121,11 @@ class AnimationPage extends Component {
 	render() {
 		return (
 			<div className="AnimationPage">
-				{this.addBannerComponent()}
+				{/* {this.addBannerComponent()} */}
 				<div className='animation-wrapper'>
 					{/* {this.addXiaoKuBaoAnimComponent()} */}
-					{/* {this.addXiaoYunComponent()} */}
-					{/* {this.addXiaoYunAsisAnimComponent()} */}
+					{this.addXiaoYunComponent()}
+					{this.addXiaoYunAsisAnimComponent()}
 				</div>
 			</div>
 		)

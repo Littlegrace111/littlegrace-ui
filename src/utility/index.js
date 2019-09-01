@@ -81,26 +81,33 @@ export const calculateItems = (items, type = 'outcome') => {
 
 /**
  * 函数节流
+ * 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效
  * @param {Function} callback 延迟dalay毫秒后之执行的函数，上下文和所有参数都按照原样传递
  * @param {Number} delay 对于事件回调，大约100或250毫秒的延迟是最有用的
  * @param {Boolean} noTrailing 可选，默认false, 
  *                              noTrailing = true, callback 每隔delay毫秒执行一次
  *                              noTrailing = false, callback delay毫秒执行一次后清空timeout
  */
-export const throttle = (callback, delay) => {
-    let lastExec = 0;
+export const throttle = (callback, delay, trailing = false) => {
+    let timeoutId, lastExec = 0;
     // 返回一个函数
     return (...args) => {
         let elapsed = Number(new Date()) - lastExec;
-        console.log('elapsed = ', elapsed)
+        // console.log('elapsed = ', elapsed, 'timeoutId = ', timeoutId)
         const exec = () => {
             lastExec = Number(new Date())
-            console.log('exec')
+            // console.log('exec')
             callback(...args)
         }
 
         if(elapsed > delay) {
             exec()
+        } else if(trailing){ 
+            // 在trailing 尾调模式下，未超时，设置回调在200ms后
+            timeoutId && clearTimeout(timeoutId)
+            timeoutId = setTimeout( () => {
+                exec()
+            }, delay - elapsed)
         }
     }   
 }
@@ -112,9 +119,9 @@ export const throttleV2 = (delay, callback) => {
         var startTime = Number(new Date())
         var elapsed = startTime - currentTime
         var args = arguments
-        console.log('wrapper, elapsed = ', elapsed)
+        // console.log('wrapper, elapsed = ', elapsed)
         function exec() {
-            console.log('exec')
+            // console.log('exec')
             currentTime = Number(new Date())
             callback.apply(self, args)
         }
@@ -123,5 +130,61 @@ export const throttleV2 = (delay, callback) => {
             exec()
         } 
     }
+}
+
+/**
+ * 函数防抖： 在事件被触发delay毫秒后再执行回调，若在这delay毫秒内又被触发，则重新计时
+ * 如果在时间间隔内执行函数，会重新触发计时。
+ * 通俗理解：函数防抖就是法师发技能的时候要读条，技能读条没完再按技能就会重新读条
+ * @param {Number} delay 
+ * @param {Function} callback 
+ */
+export const debounce = (delay, callback) => {
+    let timeoutId
+    return (...args) => {
+        timeoutId && clearTimeout(timeoutId)
+        timeoutId = setTimeout( () => {
+            callback(...args)
+        }, delay)
+    }
+}
+
+/**
+ * 判断浏览器是否支持webp图片
+ */
+export const isSupportWebp = () => {
+    let isSupportWebp = localStorage.getItem('damai_support_webp') || false
+
+    const checkWebpFeature = (feature, callback) => {
+        if(navigator.userAgent.match(/Android|AlipayClient|UCBrowser|Chrome|Opera/)) {
+            callback(true)
+            return true
+        }
+        const kTestImages = {
+            base64: 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA',
+            aliwebp: '//damaipimg.oss-cn-beijing.aliyuncs.com/cfs/src/cf23ea3e-558b-4a2b-9dbd-0ee51ebba97d.png?x-oss-process=image/resize,w_1/format,webp'
+        }
+        const img = new Image()
+        img.onload = () => {
+            const result = (img.width > 0) && (img.height > 0)
+            callback(result)
+        }
+        img.onerror = () => {
+            callback(false)
+        }
+        img.src = kTestImages[feature]
+    }
+
+    const checkCallback = (isWebp) => {
+        if(isWebp) {
+            isSupportWebp = true
+            localStorage.setItem('damai_support_webp', true)
+        }
+    }
+
+    (function () {
+        checkWebpFeature('base64', checkCallback);
+        checkWebpFeature('aliwebp', checkCallback);
+    }());
 }
 

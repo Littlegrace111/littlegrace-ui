@@ -6,6 +6,7 @@ import {
     calculateItems,
     throttle,
     throttleV2,
+    debounce,
 } from './index'
 import { priceList, categories, categoryList } from '../store/mockData'
 
@@ -36,19 +37,47 @@ import { priceList, categories, categoryList } from '../store/mockData'
 // })
 
 describe('test throttle function', () => {
-    it(' throttle(200, () => true) should reture true ', (done) => {
+    it(' throttle(200, () => true, true) with trailing should reture true ', (done) => {
         let num = 0, interval = null;
+        let startTime = +(new Date())
         const throttled = throttle(() => {
-            console.log('throttled, num = ' + num)
             num ++ 
+            const execTime = +(new Date())
+            console.log('throttled, num = ' + num, 'elapsed = ', (execTime - startTime))
             return true 
-        }, 200)
+        }, 200, true)
 
         // 20ms 触发一次throttled
+        throttled()
         interval = setInterval(() => {
             throttled()
         }, 20)
 
+        // 计算805ms触发了几次
+        setTimeout( () => {
+            console.log(num === Math.ceil(805 / 200))
+            done()
+            clearInterval(interval)
+        }, 805)
+    })
+
+    it(' throttle(200, () => true) should reture true ', (done) => {
+        let num = 0, interval = null;
+        let startTime = +(new Date())
+        const throttled = throttle(() => {
+            num ++ 
+            const execTime = +(new Date())
+            console.log('throttled, num = ' + num, 'elapsed = ', (execTime - startTime))
+            return true 
+        }, 200)
+
+        // 20ms 触发一次throttled
+        throttled()
+        interval = setInterval(() => {
+            throttled()
+        }, 20)
+
+        // 计算805ms触发了几次
         setTimeout( () => {
             console.log(num === Math.floor(805 / 200))
             done()
@@ -57,25 +86,31 @@ describe('test throttle function', () => {
     })
 })
 
-// describe('throttle', () => {
-//     it('throttle(200, () => true) should return true', (done) => {
-//         let num = 0, interval = null
-//         let throttled = throttleV2(200, () => {
-//             console.log('throttled, num = ' , num)
-//             num ++
-//             return true
-//         })
+describe('test debounce', () => {
+    it('debounce(200, ()=>true) should return true', (done) => {
+        let num = 0, interval = null
+        let startTime = +(new Date())
+        // console.log('debounce test, startTime = ', startTime)
+        const debounced = debounce(200, () => {
+            num++
+            const execTime = +(new Date())
+            console.log('debounced, num = ', num, 'elapsed = ', (execTime - startTime))
+            console.log( num === 1)
+            done()
+            return (num === 1)
+        })
 
-//         // 每20ms 触发一次throttled
-//         interval = setInterval(() => {
-//             throttled()
-//         }, 20)
+        const biu = () => { console.log('biu biu biu', new Date().Format('HH:mm:ss'))}
+        const boom = () => {
+            console.log('boom boom boom', new Date().Format('HH:mm:ss'))
+        }
 
-//         // 计算805ms触发了几次，expect
-//         setTimeout( () => {
-//             console.log(num === Math.floor(805 / 200))
-//             done()
-//             clearInterval(interval)
-//         }, 805)
-//     })
-// })
+        interval = setInterval( () => {
+            debounced()
+        }, 20)
+
+        setTimeout( () => {
+            clearInterval(interval)
+        }, 800)
+    })
+})

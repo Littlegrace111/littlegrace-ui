@@ -84,6 +84,7 @@
 3. 生产环境build，本地部署 (done)
     > 结合json-server和express创建一个web server
 
-## 20190817
-1. 画廊组件的优化
+## 20190818
+1. throttle 函数(done)
+2. dedoubce 函数
 
