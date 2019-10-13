@@ -24,7 +24,7 @@ class AnimationPage extends Component {
 
 	addXiaoYunComponent() {
 		const imageArray = [
-			'https://img.alicdn.com/tfs/TB1FJY9b7T2gK0jSZPcXXcKkpXa-1465-309.png',//asr
+			'https://img.alin.com/tfs/TB1FJY9b7T2PcXXcKkpXa-1465-309.png',//asrhttps://img.alicdn.com/tfs/TB1FJY9b7T2gK0jSZPcXXcKkpXa-1465-309.png
 			'https://img.alicdn.com/tfs/TB1p0H7b.H1gK0jSZSyXXXtlpXa-1465-168.png',//thinking
 			'https://img.alicdn.com/tfs/TB1l0r7b.H1gK0jSZSyXXXtlpXa-1465-822.png',//start
 			'https://img.alicdn.com/tfs/TB1FPj8bYr1gK0jSZR0XXbP8XXa-1465-383.png',//tts
@@ -125,7 +125,7 @@ class AnimationPage extends Component {
 				<div className='animation-wrapper'>
 					{/* {this.addXiaoKuBaoAnimComponent()} */}
 					{this.addXiaoYunComponent()}
-					{this.addXiaoYunAsisAnimComponent()}
+					{/* {this.addXiaoYunAsisAnimComponent()} */}
 				</div>
 			</div>
 		)

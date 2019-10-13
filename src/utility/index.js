@@ -40,22 +40,6 @@ export const isValidDate = (dateStr) => {
     return d.toISOString().slice(0, 10) === dateStr
 }
 
-/**
- * array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
- * total 必需，初始值和计算后返回值
- * currentValue 必需，当前元素
- * currentIndex 可选，当前元素索引
- * arr 可选，当前元素所属数组
- * initialValue 可选，传递给函数的初始值，相当于total初始值
- * @param {Array} arr 
- */
-export const flattenArr = (arr) => {
-    return arr.reduce((origin, item) => {
-        origin[item.id] = item
-        return origin;
-    }, {})
-}
-
 export const ID = () => {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
@@ -75,8 +59,24 @@ export const calculateItems = (items, type = 'outcome') => {
         }
     })
 
-    console.log(CategoryMap)
+    // console.log(CategoryMap)
     return Object.keys(CategoryMap).map( id => ({...CategoryMap[id], id}))
+}
+
+/**
+ * array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+ * total 必需，初始值和计算后返回值
+ * currentValue 必需，当前元素
+ * currentIndex 可选，当前元素索引
+ * arr 可选，当前元素所属数组
+ * initialValue 可选，传递给函数的初始值，相当于total初始值
+ * @param {Array} arr 
+ */
+export const flattenArr = (arr) => {
+    return arr.reduce((origin, item) => {
+        origin[item.id] = item
+        return origin;
+    }, {})
 }
 
 /**
@@ -93,44 +93,18 @@ export const throttle = (callback, delay, trailing = false) => {
     // 返回一个函数
     return (...args) => {
         let elapsed = Number(new Date()) - lastExec;
-        // console.log('elapsed = ', elapsed, 'timeoutId = ', timeoutId)
-        const exec = () => {
-            // let self = this;
-            lastExec = Number(new Date())
-            // console.log('exec')
-            callback(...args);
-        }
-
         if(elapsed > delay) {
-            exec();
-        } else if(trailing) { 
+            lastExec = Number(new Date());
+            callback(...args);
+        } else if(trailing) {
             // 在trailing 尾调模式下，未超时，设置回调在200ms后
             timeoutId && clearTimeout(timeoutId)
-            timeoutId = setTimeout( () => {
-                exec()
-            }, delay - elapsed)
+            timeoutId = setTimeout(() => {
+                lastExec = Number(new Date());
+                callback(...args);
+            }, delay - elapsed);
         }
     }   
-}
-
-export const throttleV2 = (delay, callback) => {
-    var currentTime = 0
-    return function wrapper() {
-        var self = this;
-        var startTime = Number(new Date());
-        var elapsed = startTime - currentTime;
-        var args = arguments;
-        // console.log('wrapper, elapsed = ', elapsed)
-        function exec() {
-            // console.log('exec')
-            currentTime = Number(new Date())
-            callback.apply(self, args)
-        }
-
-        if(elapsed > delay) {
-            exec()
-        } 
-    }
 }
 
 /**
@@ -140,12 +114,12 @@ export const throttleV2 = (delay, callback) => {
  * @param {Number} delay 
  * @param {Function} callback 
  */
-export const debounce = (delay, callback) => {
-    let timeoutId
+export const debounce = (callback, delay) => {
+    let timeoutId = null;
     return (...args) => {
         timeoutId && clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
-            callback.apply(this, [...args]);
+            callback(...args);
         }, delay);
     }
 }

@@ -26,25 +26,6 @@ class ImageLoader {
         })
     }
 
-    static doImageLoad2(url) {
-        return new Promise((resovle, reject) => {
-            const img = new Image();
-            img.onload = () => {
-                if(img.width > 1 && img.height > 1) {
-                    resovle(url);
-                } else {
-                    img.onerror();
-                }
-            }
-
-            img.onerror = () => {
-                reject(new Error('load img error'));
-            }
-
-            img.src = url;
-        });
-    }
-
     doImgLoad(item, callback) {
         console.log('doImgLoad');
         this.count++;

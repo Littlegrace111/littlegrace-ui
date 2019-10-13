@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Ionicon from 'react-ionicons'
-import {throttle} from '../../utility'
+import { throttle } from '../../utility'
 // import MdArrowRoundBack from 'react-ionicons/lib/MdArrowRoundBack'
 // import MdArrowRoundForward from 'react-ionicons/lib/MdArrowRoundForward'
 
@@ -99,6 +99,12 @@ class Banner extends Component {
         this.interval = null;
         this.timer = null;
         this.startTime = Number(new Date());
+        this.throttled = throttle(this.setStep.bind(this), 1000);
+        // this.throttled = throttle(this.setStep, 1000);
+    }
+
+    setStep(width) {
+        this.step(width);
     }
 
     startBannerAnimation(direction, infinite) {
@@ -127,21 +133,9 @@ class Banner extends Component {
     animationInfinite(width) {
         this.interval && clearInterval(this.interval)
         this.interval = setInterval(() => {
-            this.throttle(() => this.step(width), 1000);
+            //throttle(() => this.step(width), 1000);
+            this.throttled(width);
         }, 5000)
-    }
-
-
-
-    throttle(callback, delay) {
-        const currentTime = Number(new Date());
-        this.timer && clearTimeout(this.timer);
-        if (currentTime - this.startTime >= delay) {
-            callback.apply(this, arguments);
-            this.startTime = currentTime;
-        } else {
-            this.timer = setTimeout(callback, delay);
-        }
     }
 
     step(width) { // -625  625
@@ -260,15 +254,15 @@ class Banner extends Component {
     handleDirectionBtnClick(direction) {
         console.log('handleDirectionBtnClick, direction = ' + direction);
         const { width } = this.props;
-        // this.stopBannerAnimation();
         if (direction === LEFT_Dir) {
             // this.step(-625);
             // this.throttle(() => this.step(0 - width), 1000);
-            const throttled = throttle(() => this.step(0 - width), 1000);
-            
+            // const throttled = throttle(() => this.step(0 - width), 1000);
+            this.throttled(0 - width);
         } else if (direction === RIGHT_Dir) {
             // this.step(625);
-            this.throttle(() => this.step(width), 1000);
+            // throttle(() => this.step(width), 1000);
+            this.throttled(width);
         }
     }
 

@@ -7,7 +7,7 @@ export const httpRequest = (url, method='get', params = {}) => {
         success: function() {},
         error: function() {}
     }
-    // opt = Object.assign(opt, options);
+    
     if(!opt.url){
         throw new Error('url is empty');
     }

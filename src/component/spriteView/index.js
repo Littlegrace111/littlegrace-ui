@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { ImageLoader } from '../../AnimationManager'
+// import { ImageLoader } from '../../AnimationManager'
 import { AnimationStatusEnumType } from '../../AnimationManager/constants'
+import { loadImageAll } from '../../utility/imagePreLoad';
 
 const Logo = styled.div`
     width: ${(props) => props.width + 'px'};
@@ -18,7 +19,7 @@ const Logo = styled.div`
         from {background-position: 0;}
         to {background-position: -831px;}
     }
-`
+`;
 
 export default class SpriteAnimation extends Component {
     static propTypes = {
@@ -44,7 +45,7 @@ export default class SpriteAnimation extends Component {
         this.animationQueue = [];
         this.animationIndex = 0;
         this.animationState = AnimationStatusEnumType.STATE_UNINITED;
-        this.imageLoader = new ImageLoader();
+        // this.imageLoader = new ImageLoader();
 
         this.initSpriteAnimation();
     }
@@ -54,30 +55,35 @@ export default class SpriteAnimation extends Component {
         if(!frameImgList || frameImgList.length === 0) {
             throw new RangeError('frameImgList is empty');
         }
-        this.imageLoader.loadImage(frameImgList, (result, data) => {
-            console.log('loadImage: ' + result);
+        
+        loadImageAll(frameImgList).then((result) => {
+            console.log('loadImage: ', result);
             if (result) {
-                this.handleImageData(data);
+                this.handleImageData(result);
             } else {
                 // 图片预加载不成功做降级处理，贴本地图片
             }
-            // console.log(data);
             this.startAnimation();
-        })
+        }).catch(error => {
+            console.log('catch', error);
+        });
     }
 
     handleImageData(imageList) {
-        imageList.forEach((item) => {
-            const imageWidth = item.img.width,
-                imageHeight = item.img.height;
+        this.animationQueue = imageList.map( img => {
+            console.log(img.src);
+            const imageWidth = img.width,
+                imageHeight = img.height;
             const columns = Math.floor(imageWidth / this.frameWidth);
             const rows = Math.floor(imageHeight / this.frameHeight);
+            const item = {};
+            item.img = img;
             item.columns = columns;
             item.rows = rows;
             item.frameCount = columns * rows;
             item.frameDuration = this.frameDuration;
-            this.animationQueue.push(item);
-        });
+            return item;
+        })
     }
 
     startAnimation() {
@@ -128,7 +134,7 @@ export default class SpriteAnimation extends Component {
     }
 
     changeImage(animationItem) {
-        this.setState({ currentImage: animationItem.src });
+        this.setState({ currentImage: animationItem.img.src });
     }
 
     changePosition() {

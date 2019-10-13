@@ -88,3 +88,6 @@
 1. throttle 函数(done)
 2. dedoubce 函数
 
+## 20191013
+1. 把图片预加载器改成promise的写法；
+2. debounce和throttle改成业务工具函数；
