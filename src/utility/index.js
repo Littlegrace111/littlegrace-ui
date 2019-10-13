@@ -52,7 +52,7 @@ export const isValidDate = (dateStr) => {
 export const flattenArr = (arr) => {
     return arr.reduce((origin, item) => {
         origin[item.id] = item
-        return origin
+        return origin;
     }, {})
 }
 
@@ -95,14 +95,15 @@ export const throttle = (callback, delay, trailing = false) => {
         let elapsed = Number(new Date()) - lastExec;
         // console.log('elapsed = ', elapsed, 'timeoutId = ', timeoutId)
         const exec = () => {
+            // let self = this;
             lastExec = Number(new Date())
             // console.log('exec')
-            callback(...args)
+            callback(...args);
         }
 
         if(elapsed > delay) {
-            exec()
-        } else if(trailing){ 
+            exec();
+        } else if(trailing) { 
             // 在trailing 尾调模式下，未超时，设置回调在200ms后
             timeoutId && clearTimeout(timeoutId)
             timeoutId = setTimeout( () => {
@@ -115,10 +116,10 @@ export const throttle = (callback, delay, trailing = false) => {
 export const throttleV2 = (delay, callback) => {
     var currentTime = 0
     return function wrapper() {
-        var self = this
-        var startTime = Number(new Date())
-        var elapsed = startTime - currentTime
-        var args = arguments
+        var self = this;
+        var startTime = Number(new Date());
+        var elapsed = startTime - currentTime;
+        var args = arguments;
         // console.log('wrapper, elapsed = ', elapsed)
         function exec() {
             // console.log('exec')
@@ -143,10 +144,111 @@ export const debounce = (delay, callback) => {
     let timeoutId
     return (...args) => {
         timeoutId && clearTimeout(timeoutId)
-        timeoutId = setTimeout( () => {
-            callback(...args)
-        }, delay)
+        timeoutId = setTimeout(() => {
+            callback.apply(this, [...args]);
+        }, delay);
     }
+}
+
+export const getSymbol = (prefix) => {
+    return prefix + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+}
+
+export const jsonp = (url, onsuccess, onerror, charset) => {
+    let callbackName = getSymbol('tt_player');
+    window[callbackName] = function() {
+        if(onsuccess && onsuccess instanceof Function) {
+            onsuccess(arguments[0])
+        }
+    };
+    const script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    charset && script.setAttribute('charset', charset);
+    script.setAttribute('src', url + '&callback=' + callbackName);
+    script.async = true;
+    script.onload = script.onreadystatechange = () => {
+        if(!script.readyState || /loaded|complete/.test(script.readyState)) {
+            script.onload = script.onreadystatechange = null;
+            // 移除该script的 DOM 对象
+            if(script.parentNode) {
+                script.parentNode.removeChild(script)
+            }
+            delete window[callbackName]
+            window[callbackName] = null;
+        }
+    };
+    script.onerror = () => {
+        if(onerror && onerror instanceof Function) {
+            onerror();
+        }
+    };
+    document.getElementsByTagName('haed')[0].appendChild(script);
+}
+
+// export const json = (options) => {
+//     const opt = {
+//         url: '',
+//         type: 'get',
+//         data: {},
+//         success: function() {},
+//         error: function() {}
+//     };
+
+//     extend(opt, options);
+//     if(opt.url) {
+//         // 浏览器特征检查
+//         let xhr = XMLHttpRequest? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//         let data = opt.data, // 参数object
+//             url = opt.url,
+//             type = opt.type.toUpperCase(),
+//             dataArr = [];
+//         for(let k in data) { // 把参数里面的值使用等号串联起来
+//             dataArr.push(k + '=' + data[k])
+//         }
+//         if(type === 'GET') {
+//             url = url + '?' + dataArr.join('&');
+//             xhr.open(type, url.replace(/\?$/g, ''), true);
+//             xhr.send();
+//         }
+//         if(type === 'POST') {
+//             xhr.open(type, url, true)
+//             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//             xhr.send(dataArr.join('&'))
+//         }
+//         xhr.onload = function() { // onreadystatechange === 4 true
+//             // 如果请求的是流媒体资源，需要考虑206的情况
+//             if(xhr.status === 200 || xhr.status === 304) { // 304 重定向到浏览器缓存 from memory cache
+//                 var res;
+//                 if(opt.success && opt.success instanceof Function) {
+//                     res = xhr.responseText;
+//                     if(typeof res === 'string') {
+//                         res = JSON.parse(res);
+//                         opt.success.call(xhr, res);
+//                     }
+//                 }
+//             } else {
+//                 if(opt.error && opt.error instanceof Function) {
+//                     opt.error.call(xhr, res);
+//                 }
+//             }
+//         }
+//     }
+// }
+ 
+export const extend = function(dst, obj) {
+    for(let i in obj) {
+        if(obj.hasOwnProperty(i)) {
+            dst[i] = obj[i]
+        }
+    }
+}
+
+export const setcookie = function(name, value, daysToLive) {
+    let cookie = name + '=' + encodeURIComponent(value);
+    if(typeof daysToLive === 'number') {
+        cookie += "; max-age=" + daysToLive*60*60*24;
+    }
+    document.cookie = cookie;
 }
 
 /**

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Ionicon from 'react-ionicons'
+import {throttle} from '../../utility'
 // import MdArrowRoundBack from 'react-ionicons/lib/MdArrowRoundBack'
 // import MdArrowRoundForward from 'react-ionicons/lib/MdArrowRoundForward'
 
@@ -129,6 +130,8 @@ class Banner extends Component {
             this.throttle(() => this.step(width), 1000);
         }, 5000)
     }
+
+
 
     throttle(callback, delay) {
         const currentTime = Number(new Date());
@@ -260,7 +263,9 @@ class Banner extends Component {
         // this.stopBannerAnimation();
         if (direction === LEFT_Dir) {
             // this.step(-625);
-            this.throttle(() => this.step(0 - width), 1000);
+            // this.throttle(() => this.step(0 - width), 1000);
+            const throttled = throttle(() => this.step(0 - width), 1000);
+            
         } else if (direction === RIGHT_Dir) {
             // this.step(625);
             this.throttle(() => this.step(width), 1000);
