@@ -87,6 +87,7 @@ export const flattenArr = (arr) => {
  * @param {Boolean} noTrailing 可选，默认false, 
  *                              noTrailing = true, callback 每隔delay毫秒执行一次
  *                              noTrailing = false, callback delay毫秒执行一次后清空timeout
+ * callback 需要bind this
  */
 export const throttle = (callback, delay, trailing = false) => {
     let timeoutId, lastExec = 0;
@@ -264,3 +265,13 @@ export const isSupportWebp = () => {
     }());
 }
 
+export const setRem = (psdw) => { 
+    const dpr = window.devicePixelRatio;
+    const htmlDom = document.documentElement;
+    const currentWidth = htmlDom.clientWidth;
+    const scale = currentWidth / psdw; // 1920 / 750 = 2.6
+    let rem = psdw / 10; // 75
+    rem = rem * scale; // 
+    htmlDom.style.fontSize = rem + 'px';
+    htmlDom.setAttribute('data-dpr', dpr);
+}
