@@ -1,14 +1,14 @@
+
 import { ImageLoader } from './imageLoader'
 import { AnimationStatusEnumType } from '../../AnimationManager/constants'
 
-
-class Animation {
+class AnimationManager {
     constructor() {
         this.animationHandler = 0;
         this.animationQueue = [];
         this.animationIndex = 0;
         this.animationState = AnimationStatusEnumType.STATE_UNINITED;
-        this.imageLoader = new ImageLoader();
+        // this.imageLoader = new ImageLoader();
     }
 
     initAniamtion(frameParam, callback) {
@@ -47,7 +47,7 @@ class Animation {
     }
 
     changeImage(src, callback) {
-
+        
     }
 
     enterFrame() {
@@ -88,4 +88,4 @@ class Animation {
     }
 }
 
-export default Animation;
+export default AnimationManager;

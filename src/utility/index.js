@@ -229,7 +229,7 @@ export const setcookie = function(name, value, daysToLive) {
 /**
  * 判断浏览器是否支持webp图片
  */
-export const isSupportWebp = () => {
+export const supportWebp = () => {
     let isSupportWebp = localStorage.getItem('damai_support_webp') || false
 
     const checkWebpFeature = (feature, callback) => {

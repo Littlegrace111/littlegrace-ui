@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 // import { ImageLoader } from '../../AnimationManager'
-import { AnimationStatusEnumType } from '../../AnimationManager/constants'
+import { AnimationStatusEnumType } from '../../animation/constants'
 import { loadImageAll } from '../../utility/imagePreLoad';
 
 const Logo = styled.div`
@@ -95,18 +95,18 @@ export default class SpriteAnimation extends Component {
     playAnimation() {
         console.log('playAnimation')
         this.animationState = AnimationStatusEnumType.STATE_STARTED;
+        
         let startTime = +new Date();
-        const me = this;
-        step();
-        function step() {
-            // console.log('step');
+        const step = () =>{
+            console.log('step');
             const currentTime = +new Date();
-            me.animationHandler = window.requestAnimationFrame(step);
-            if (currentTime - startTime >= me.frameDuration) {
-                me.changePosition(); // 每一帧的操作
+            if (currentTime - startTime >= this.frameDuration) {
+                this.changePosition(); // 每一帧的操作
                 startTime = currentTime;
             }
+            this.animationHandler = window.requestAnimationFrame(step);
         }
+        step();
     }
 
     stopAnimation() {

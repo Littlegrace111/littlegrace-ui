@@ -28,8 +28,8 @@ export const loadAllImages = (imageUrlList) => {
     Promise.all(imageUrlList.map( url => {
         return imageLoader(url);
     })).then((...args) => {
-        console.log('then');
+        console.log('then', args);
     }).catch((...error) => {
-
+        
     });
 }
