@@ -13,7 +13,7 @@ console.log('clientWidth =', document.documentElement.clientWidth);
 console.log('scrollWidth =', document.documentElement.scrollWidth);
 console.log('screen_width =', window.screen.width); //
 // setRem(1920);
-// supportWebp();
+console.log('supportWebp =', supportWebp());
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -227,51 +227,85 @@ export const setcookie = function(name, value, daysToLive) {
 }
 
 /**
- * 判断浏览器是否支持webp图片
+ * 判断浏览器是否支持webp图片: ios 部分版本的webview对webp支持不好
  */
 export const supportWebp = () => {
-    let isSupportWebp = localStorage.getItem('damai_support_webp') || false
-
-    const checkWebpFeature = (feature, callback) => {
-        if(navigator.userAgent.match(/Android|AlipayClient|UCBrowser|Chrome|Opera/)) {
-            callback(true)
-            return true
-        }
-        const kTestImages = {
-            base64: 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA',
-            aliwebp: '//damaipimg.oss-cn-beijing.aliyuncs.com/cfs/src/cf23ea3e-558b-4a2b-9dbd-0ee51ebba97d.png?x-oss-process=image/resize,w_1/format,webp'
-        }
-        const img = new Image()
-        img.onload = () => {
-            const result = (img.width > 0) && (img.height > 0)
-            callback(result)
-        }
-        img.onerror = () => {
-            callback(false)
-        }
-        img.src = kTestImages[feature]
+    if(navigator.userAgent.match(/Android|AlipayClient|UCBrowser|Chrome|Opera/)) {
+        return true;
     }
 
-    const checkCallback = (isWebp) => {
-        if(isWebp) {
-            isSupportWebp = true
-            localStorage.setItem('damai_support_webp', true)
-        }
+    const kTestImages = {
+        base64: 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA',
+        aliwebp: '//damaipimg.oss-cn-beijing.aliyuncs.com/cfs/src/cf23ea3e-558b-4a2b-9dbd-0ee51ebba97d.png?x-oss-process=image/resize,w_1/format,webp'
+    };
+
+    const checkWebpFeature = (feature = 'base64') => {
+        return new Promise((resovle, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                const result = (img.width > 0) && (img.height > 0)
+                resovle(result)
+            }
+            img.onerror = () => {
+                reject(false);
+            }
+            img.src = kTestImages[feature]
+        }) 
     }
 
-    (function () {
-        checkWebpFeature('base64', checkCallback);
-        checkWebpFeature('aliwebp', checkCallback);
-    }());
+    let isSupportWebp = localStorage.getItem('damai_support_webp');
+    console.log('isSupportWebp', isSupportWebp);
+    if(isSupportWebp === null) {
+        return checkWebpFeature().then( result => {
+            console.log('checkWebpFeature', result);
+            localStorage.setItem('damai_support_webp', result);
+        });
+    } else {
+        return isSupportWebp;
+    }
+    
+    // 去下载一张webp的图片，看能否支持webp
+    // const checkWebpFeature = (feature, callback) => {
+    //     if(navigator.userAgent.match(/Android|AlipayClient|UCBrowser|Chrome|Opera/)) {
+    //         callback(true)
+    //         return true
+    //     }
+    //     const kTestImages = {
+    //         base64: 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA',
+    //         aliwebp: '//damaipimg.oss-cn-beijing.aliyuncs.com/cfs/src/cf23ea3e-558b-4a2b-9dbd-0ee51ebba97d.png?x-oss-process=image/resize,w_1/format,webp'
+    //     }
+    //     const img = new Image()
+    //     img.onload = () => {
+    //         const result = (img.width > 0) && (img.height > 0)
+    //         callback(result)
+    //     }
+    //     img.onerror = () => {
+    //         callback(false)
+    //     }
+    //     img.src = kTestImages[feature]
+    // }
+
+    // const checkCallback = (isWebp) => {
+    //     if(isWebp) {
+    //         isSupportWebp = true
+    //         localStorage.setItem('damai_support_webp', true)
+    //     }
+    // }
+
+    // (function () {
+    //     checkWebpFeature('base64', checkCallback);
+    //     checkWebpFeature('aliwebp', checkCallback);
+    // }());
 }
 
+// psdw
 export const setRem = (psdw) => { 
     const dpr = window.devicePixelRatio;
     console.log('dpr =', dpr);
     const htmlDom = document.documentElement;
     const currentWidth = htmlDom.clientWidth;
     const scale = currentWidth / psdw; // 1920 / 750 = 2.6
-    let rem = psdw / 10; // 75
+    let rem = psdw / 75; // 75
     rem = rem * scale; // 
     htmlDom.style.fontSize = rem + 'px';
     htmlDom.setAttribute('data-dpr', dpr);

@@ -99,4 +99,8 @@
 3. dpr: devicePixelRatio = 物理像素 / 逻辑像素；
 4. 响应式布局：媒体查询;
 5. 以iphone6 为例，物理像素 w_750 * h_1334, screen.width 获取的逻辑像素是375, screen.height 获取的逻辑像素是667；
-6. 
+
+
+## 20191022
+1. html的width为 document.documentElemnt.scrollWidth;
+2. 

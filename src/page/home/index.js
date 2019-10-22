@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+// 以下是引入的组件
 import Ionicon from 'react-ionicons'
 import ListView from '../../component/listview'
 // import TabView from '../../component/tabview'
@@ -8,6 +9,8 @@ import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
 import Loader from '../../component/Loader'
 import PieChart from '../../component/charts'
+import ScrollToTop from '../../component/scrollToTop'
+
 // import { parseToYearAndMonth, padLeft } from '../../utility'
 // import { priceList, categoryList } from '../../store/mockData'
 import WithContext from '../WithContext'
@@ -160,6 +163,7 @@ class HomePage extends Component {
                         onCreateItem={this.createItem}
                     />
                 </div>
+                <ScrollToTop />
             </div>
         )
     }
