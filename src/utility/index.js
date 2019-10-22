@@ -267,6 +267,7 @@ export const supportWebp = () => {
 
 export const setRem = (psdw) => { 
     const dpr = window.devicePixelRatio;
+    console.log('dpr =', dpr);
     const htmlDom = document.documentElement;
     const currentWidth = htmlDom.clientWidth;
     const scale = currentWidth / psdw; // 1920 / 750 = 2.6

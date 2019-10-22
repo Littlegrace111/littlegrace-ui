@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 import { inspectFPS } from './animation/frameInspect';
-import { supportWebp } from './utility';
+import { supportWebp, setRem } from './utility';
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
 inspectFPS();
+console.log('clientWidth =', document.documentElement.clientWidth);
+console.log('scrollWidth =', document.documentElement.scrollWidth);
+console.log('screen_width =', window.screen.width); //
+// setRem(1920);
 // supportWebp();
 
 // If you want your app to work offline and load faster, you can change

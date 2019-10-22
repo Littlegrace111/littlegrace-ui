@@ -91,3 +91,12 @@
 ## 20191013
 1. 把图片预加载器改成promise的写法；
 2. debounce和throttle改成业务工具函数；
+
+## 20191021
+1. 对viewport视口进行理解；
+    设置viewport的width=device-width或者写死成viewport=1920；
+2. 对组件样式采用rem来设置；
+3. dpr: devicePixelRatio = 物理像素 / 逻辑像素；
+4. 响应式布局：媒体查询;
+5. 以iphone6 为例，物理像素 w_750 * h_1334, screen.width 获取的逻辑像素是375, screen.height 获取的逻辑像素是667；
+6. 
