@@ -103,4 +103,4 @@
 
 ## 20191022
 1. html的width为 document.documentElemnt.scrollWidth;
-2. 
+2. 设计响应式的页面布局

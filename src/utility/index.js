@@ -306,7 +306,7 @@ export const setRem = (psdw) => {
     const currentWidth = htmlDom.clientWidth;
     const scale = currentWidth / psdw; // 1920 / 750 = 2.6
     let rem = psdw / 75; // 75
-    rem = rem * scale; // 
+    rem = rem * scale; 
     htmlDom.style.fontSize = rem + 'px';
     htmlDom.setAttribute('data-dpr', dpr);
 }

@@ -10,6 +10,7 @@ import CreateBtn from '../../component/createBtn'
 import Loader from '../../component/Loader'
 import PieChart from '../../component/charts'
 import ScrollToTop from '../../component/scrollToTop'
+import Header from '../../component/header'
 
 // import { parseToYearAndMonth, padLeft } from '../../utility'
 // import { priceList, categoryList } from '../../store/mockData'
@@ -105,6 +106,7 @@ class HomePage extends Component {
 
         return (
             <div className="Page">
+                <Header />
                 <div className="home-header d-flex
                                 justify-content-between
                                 align-items-center">
