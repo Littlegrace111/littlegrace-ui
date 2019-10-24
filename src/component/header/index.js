@@ -59,7 +59,13 @@ const HeaderItem = styled.a `
             transform: translateY(-3px);
         }
     }
-`
+
+    @media (max-width: 640px) {
+        span {
+            display: none;
+        }
+    }
+`;
 
 // 展示型组件有状态模板
 class Header extends Component {
