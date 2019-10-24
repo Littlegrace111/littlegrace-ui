@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { throttle } from '../../utility'
 
 const HeaderWrapper = styled.div `
-    position: fixed;
+    ${'' /* position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -12,7 +12,19 @@ const HeaderWrapper = styled.div `
     z-index: 100;
     background: rgb(0,0,0, 1.0);
     color: white;
-    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); */}
+
+    &.header-wrapper {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        padding: 50px 30px;
+        z-index: 100;
+        background: linear-gradient(rgba(0,0,0,1.0), rgba(0,0,0, 0));
+        color: white;
+        transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
 
     &.header-scrolled {
         background: rgba(0,0,0, 0.7);
@@ -27,6 +39,18 @@ const HeaderWrapper = styled.div `
         margin: 0 auto;
         justify-content: space-between;
         align-items: center;
+    }
+
+    @media (max-width: 960px) {
+        &.header-wrapper {
+            padding: 15px 30px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .header-title {
+            display: none;
+        }
     }
 `;
 
@@ -59,12 +83,6 @@ const HeaderItem = styled.a `
             transform: translateY(-3px);
         }
     }
-
-    @media (max-width: 640px) {
-        span {
-            display: none;
-        }
-    }
 `;
 
 // 展示型组件有状态模板
@@ -92,26 +110,26 @@ class Header extends Component {
 
     render() {
         return (
-            <HeaderWrapper className={this.state.scrolled ? 'header-scrolled' : ''}>
+            <HeaderWrapper className={this.state.scrolled ? 'header-wrapper header-scrolled' : 'header-wrapper'}>
                 <div className="header-group">
-                    <HeaderItem>
+                    <HeaderItem href='/'>
                         <img src={require('../../assets/images/logo-black.svg')}/>
-                        <span>Home</span>
+                        <span className="header-title">Home</span>
                     </HeaderItem>
-                    <HeaderItem>
-                        <img src={require('../../assets/images/logo-react.png')}/>
-                        <span>Animation</span>
-                    </HeaderItem>
-                    <HeaderItem>
+                    <HeaderItem href='/zhangben'>
                         <img src={require('../../assets/images/logo-framer.png')}/>
-                        <span>Downloads</span>
+                        <span className="header-title">MoneyList</span>
+                    </HeaderItem>
+                    <HeaderItem href='/animation'>
+                        <img src={require('../../assets/images/logo-react.png')}/>
+                        <span className="header-title">Animation</span>
                     </HeaderItem>
                     <HeaderItem>
                         <img src={require('../../assets/images/logo-sketch.png')}/>
-                        <span>Courses</span>
+                        <span className="header-title">Courses</span>
                     </HeaderItem>
                     <HeaderItem>
-                        <button>button</button>
+                        <button>buy</button>
                     </HeaderItem>
                 </div>
             </HeaderWrapper>

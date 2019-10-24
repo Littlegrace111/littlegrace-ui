@@ -100,7 +100,15 @@
 4. 响应式布局：媒体查询;
 5. 以iphone6 为例，物理像素 w_750 * h_1334, screen.width 获取的逻辑像素是375, screen.height 获取的逻辑像素是667；
 
-
 ## 20191022
 1. html的width为 document.documentElemnt.scrollWidth;
-2. 设计响应式的页面布局
+2. 设计响应式的页面布局：
+   1. media 媒体查询；
+   2. flex和grid布局；
+3. 移动端页面适配：
+   1. viewport;
+   2. rem;
+   3. dpr devicePixelRatio;
+
+## 20191024 
+1. 做导航栏；

@@ -106,7 +106,6 @@ class HomePage extends Component {
 
         return (
             <div className="Page">
-                <Header />
                 <div className="home-header d-flex
                                 justify-content-between
                                 align-items-center">
