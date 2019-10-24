@@ -7,12 +7,10 @@ import Wave from '../../animation/wave'
 const BgImg = styled.div `
     position: relative;
     width: 100%;
-    height: auto;
-    ${'' /* background-size: cover;
-    background-position: center; */}
-    img {
-        width: 100%;
-    }
+    height: 900px;
+    background: url(https://img.alicdn.com/tfs/TB1XpR6bVT7gK0jSZFpXXaTkpXa-1280-720.png);
+    background-size: cover;
+    background-position: center;
 
     svg {
         position: absolute;
@@ -33,7 +31,7 @@ class WelcomePage extends Component {
             <Fragment>
                 <Header />
                 <BgImg>
-                    <img src='https://img.alicdn.com/tfs/TB1XpR6bVT7gK0jSZFpXXaTkpXa-1280-720.png'/>
+                    {/* <img src='https://img.alicdn.com/tfs/TB1XpR6bVT7gK0jSZFpXXaTkpXa-1280-720.png'/> */}
                     <Wave />
                 </BgImg>
             </Fragment>
