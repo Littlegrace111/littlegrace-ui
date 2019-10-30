@@ -1,16 +1,12 @@
-import React, { Component } from 'react'
-import HomePage from './page/home'
-import CreatePage from './page/create'
-import AnimationPage from './page/animation'
-import WelcomePage from './page/welcome'
-import { BrowserRouter, Route } from 'react-router-dom'
+import React, { Component } from 'react';
+import AsyncRoute from './router/';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import { priceList, categories } from './store/mockData'
 import { flattenArr, ID, parseToYearAndMonth } from './utility'
 import axios from 'axios'
 
-export const AppContext = React.createContext()
+export const AppContext = React.createContext();
 
 class App extends Component {
 	constructor(props) {
@@ -137,17 +133,9 @@ class App extends Component {
 		return (
 			<AppContext.Provider value={{
 				state: this.state,
-				actions: this.actions
-			}}>
+				actions: this.actions}}>
 				<div className="App">
-					<BrowserRouter>
-						{/* <Route path='/' exact component={HomePage} ></Route> */}
-						<Route path='/' exact component={WelcomePage} ></Route>
-						<Route path='/zhangben' component={HomePage} ></Route>
-						<Route path='/create' component={CreatePage} ></Route>
-						<Route path='/edit/:id' component={CreatePage} ></Route>
-						<Route path='/animation' component={AnimationPage} ></Route>
-					</BrowserRouter>
+					<AsyncRoute />
 				</div>
 			</AppContext.Provider>
 		)

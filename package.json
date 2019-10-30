@@ -55,6 +55,7 @@
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
+    "source-map-explorer": "^2.1.0",
     "style-loader": "0.23.1",
     "styled-components": "^4.3.2",
     "terser-webpack-plugin": "1.2.3",
@@ -66,8 +67,9 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "concurrently \"node scripts/start.js\" \"npm run mock\" ",
-    "build": "node scripts/build.js",
+    "build": "concurrently \"node scripts/build.js\" \"serve -s build\" ",
     "test": "node scripts/test.js",
     "mock": "json-server --watch db.json --port 3004"
   },

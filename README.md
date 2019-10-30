@@ -1,3 +1,12 @@
+## 技术栈
+react + redux + react-router + immutable
+
+## 工程化模块化
+webpack + es6/7/8
+
+## React-Router
+react-router 提供Link标签，是a标签的封装，并阻止了a标签的默认行为，并用pushState进行hash值的转变；
+
 ## Home页面
 1. 账本条目展示组件：<PriceList />
 2. tabView组件（组件设计）
@@ -111,4 +120,14 @@
    3. dpr devicePixelRatio;
 
 ## 20191024 
-1. 做导航栏；
+1. 做导航栏和welcome页面
+
+
+## 20191028
+1. serviceWorker的使用；
+2. `npm install --save source-map-explorer` 分析Bundle包大小；
+
+## 20191030
+Code Spliting and React Router v4;
+采用 asyncComponent 异步加载页面，基于react-router 进行code spliting;
+   
