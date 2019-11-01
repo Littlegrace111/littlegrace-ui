@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div `
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 50px 0px;
+
     h2 {
         text-align: center;
         font-size: 60px;
@@ -21,15 +27,11 @@ export const Wrapper = styled.div `
 export const Group = styled.div `
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    max-width: 1360px;
+    justify-content: flex-start;
     align-items: center;
-    padding: 0px 40px 40px 40px;
-
-    @media (max-width: 760px) {
-        .grid-group {
-            justify-content: center;
-        }
-    }
+    ${'' /* padding: 0px 40px 40px 40px; */}
+    text-align: center;
 `
 
 export const Card = styled.div `

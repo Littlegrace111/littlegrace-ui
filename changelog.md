@@ -114,4 +114,7 @@
 1. 做导航栏和welcome页面；
 
 ## 20191028
-1. serviceWorker的使用；
+serviceWorker的使用；
+
+## 20191101
+采用flex 布局实现响应式布局grid
