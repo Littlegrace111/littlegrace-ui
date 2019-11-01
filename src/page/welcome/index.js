@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Header from '../../component/header'
 import Wave from '../../animation/wave'
 import Search from '../../component/search'
+import Grid from '../../component/grid'
 
 const BgImg = styled.div`
     position: relative;
@@ -84,6 +85,7 @@ class WelcomePage extends Component {
                     </div>
                     <Wave />
                 </BgImg>
+                <Grid />
             </Fragment>
         )
     }
