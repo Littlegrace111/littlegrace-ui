@@ -1,5 +1,4 @@
-import React, { Component, Fragment} from 'react'
-import PropTypes from 'prop-types'
+import React, { Component} from 'react'
 import styled from 'styled-components'
 import { throttle } from '../../utility'
 
@@ -20,22 +19,24 @@ class ScrollToTop extends Component {
     constructor(props) {
         super(props)
         this.state = { show: false}
-        this.handleScroll = this.handleScroll.bind(this);
+        // this.handleScroll = this.handleScroll.bind(this);
+        // this.throttled = throttle(this.handleScroll, 200, true);
     }
  
     componentDidMount() {
         // window.addEventListener('scroll', this.handleScroll); 
         // 对scroll事件做节流，会导致位置算得不准？？？要采用trailing = true的模式
-        window.addEventListener('scroll', throttle(this.handleScroll, 200, true)); // 对scroll事件做节流
+        window.addEventListener('scroll', throttle(this.handleScroll, 200, true), false);
     }
 
-    handleScroll() {
-        console.log('handleScroll');
+    // 在定义时，使用语法糖bind(this)
+    handleScroll = (event) => {
+        console.log('handleScroll, ScrollToTop');
         const scrollHeight = document.documentElement.scrollHeight;
         const offsetY = scrollHeight - window.innerHeight - 20;
-        console.log('window.innerHeight =', window.innerHeight);
+        // console.log('window.innerHeight =', window.innerHeight);
         console.log('window.scrollY =', window.scrollY);
-        console.log('scrollHeight =', scrollHeight);
+        // console.log('scrollHeight =', scrollHeight);
         console.log('offsetY =', offsetY);
         
         if(window.scrollY >= offsetY) {

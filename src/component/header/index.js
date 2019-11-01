@@ -1,6 +1,5 @@
 import React, { Component, Fragment} from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import { throttle } from '../../utility'
 
 const HeaderWrapper = styled.div `
@@ -23,7 +22,7 @@ const HeaderWrapper = styled.div `
         z-index: 100;
         background: linear-gradient(rgba(0,0,0,1.0), rgba(0,0,0, 0));
         color: white;
-        transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     &.header-scrolled {
