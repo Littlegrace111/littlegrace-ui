@@ -10,7 +10,7 @@ class Grid extends Component {
     render() {
         return (
             <GridStyle.Wrapper>
-                <h2>这是一个Grid组件的标题</h2>
+                <h2>采用flex布局实现的响应式Grid组件</h2>
                 <GridStyle.Group className="grid-group">
                     <Card 
                         title="item的标题"

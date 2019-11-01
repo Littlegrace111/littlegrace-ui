@@ -4,6 +4,7 @@ import Header from '../../component/header'
 import Wave from '../../animation/wave'
 import Search from '../../component/search'
 import Grid from '../../component/grid'
+import CellList from '../../component/cellList'
 
 const BgImg = styled.div`
     position: relative;
@@ -86,6 +87,7 @@ class WelcomePage extends Component {
                     <Wave />
                 </BgImg>
                 <Grid />
+                <CellList />
             </Fragment>
         )
     }
