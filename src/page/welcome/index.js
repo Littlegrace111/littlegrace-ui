@@ -15,8 +15,8 @@ const BgImg = styled.div`
 
     .header-group {
         margin: 0 auto;
-        max-width: 500px;
-        padding: 100px 50px;
+        max-width: 640px;
+        padding: 200px 50px;
         text-align: center;
     }
 

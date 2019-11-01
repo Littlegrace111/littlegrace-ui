@@ -30,8 +30,6 @@ export const Group = styled.div `
     max-width: 1360px;
     justify-content: flex-start;
     align-items: center;
-    ${'' /* padding: 0px 40px 40px 40px; */}
-    text-align: center;
 `
 
 export const Card = styled.div `
