@@ -5,6 +5,7 @@ import Wave from '../../animation/wave'
 import Search from '../../component/search'
 import Grid from '../../component/grid'
 import CellList from '../../component/cellList'
+import WithContext from '../WithContext'
 
 const BgImg = styled.div`
     position: relative;
@@ -71,7 +72,7 @@ class WelcomePage extends Component {
 
     componentDidMount() {
         console.log(WelcomePage.pageName, 'componentDidMount');
-    
+        this.props.actions.getSearchInfo(1);
     }
 
     render() {
@@ -82,7 +83,7 @@ class WelcomePage extends Component {
                     <div className="header-group">
                         <h1>Pain is inevitable, <br /> Suffering is optional.</h1>
                         <p>《菜根谭》里有句话：世利纷华，不近者为洁，近之而不染者，为尤洁。</p>
-                        <Search />
+                        <Search tabList={this.props.data.tabList}/>
                     </div>
                     <Wave />
                 </BgImg>
@@ -93,4 +94,4 @@ class WelcomePage extends Component {
     }
 }
 
-export default WelcomePage;
+export default WithContext(WelcomePage);

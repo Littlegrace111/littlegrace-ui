@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const SearchWrapper = styled.div`
+    position: relative;
     width: 100%;
     padding: 0 20px;
 `
@@ -62,16 +63,16 @@ export const IconFont = styled.div `
     }
 `
 
-export const SearchTipsWrapper = styled.div `
+export const TipsWrapper = styled.div `
     position: absolute;
-    left: 20px;
-    margin-top: 9px;
+    left: 130px;
+    ${'' /* margin-top: 9px; */}
     padding: 20px 20px 10px 20px;
     width: 250px;
     background: #fff;
     box-shadow: 0 0 8px rgba(0,0,0, .2);
     border-radius: 4px;
-    z-index: 101;
+    ${'' /* z-index: 101; */}
 
     &:before {
         content: "";
@@ -86,12 +87,14 @@ export const SearchTipsWrapper = styled.div `
     }
 `;
 
-export const SearchTipsTitle = styled.div `
+export const TipsTitle = styled.div `
     font-size: 14px;
     color: #969696;
     margin-bottom: 10px;
+    text-align: left;
 
     a {
+        position: relative;
         float: right;
         cursor: pointer;
 
@@ -100,8 +103,10 @@ export const SearchTipsTitle = styled.div `
         }
 
         .iconfont {
-            display: inline-block;
-            font-size: 13px;
+            position: absolute;
+            display: inline;
+            top: 3px;
+            left: -16px;
             line-height: 1;
             transition: all .5s ease;
             margin-right: 2px;
@@ -109,11 +114,11 @@ export const SearchTipsTitle = styled.div `
     }
 `;
 
-export const SearchTipsList = styled.ul `
-    ${'' /* background: blue; */}
+export const TipsList = styled.ul `
+    text-align: left;
 `;
 
-export const SearchTipItem = styled.li `
+export const TipItem = styled.li `
     display: inline-block;
     line-height: 28px;
     margin-right: 10px;

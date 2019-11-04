@@ -15,7 +15,8 @@ class App extends Component {
 			items: {},
 			categories: {},
 			currentYearMonth: parseToYearAndMonth(),
-			isLoading: false
+			isLoading: false,
+			tabList: []
 		}
 
 		// 高阶函数: 入参传递一个函数，返回一个新的函数
@@ -34,7 +35,7 @@ class App extends Component {
 				const {year, month } = this.state.currentYearMonth
 				const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`
 				const arrays = await Promise.all([ axios.get('/categories'), axios.get(getItemURLWithQuery) ])
-				// console.log(arrays)
+				console.log('getInitialData, response =', arrays)
 				const [ categories, itemsWithFilter ] = arrays
 				this.setState({
 					items: flattenArr(itemsWithFilter.data),
@@ -124,6 +125,17 @@ class App extends Component {
 						items: this.state.items,
 						isLoading: false
 					})
+				})
+			}),
+
+			getSearchInfo: withLoading((pageIndex) => {
+				axios.get(`/searchInfo?pageIndex=${pageIndex}`).then( response => {
+					console.log('searchInfo response =', response);
+					if(response.status === 200) {
+						this.setState( {
+							tabList: [...response.data[0].tablist]
+						})
+					}
 				})
 			})
 		}
