@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const CellListWrapper = styled.div `
+    padding-bottom: 60px;
+
     h2 {
         font-weight: 600;
         font-size: 30px;

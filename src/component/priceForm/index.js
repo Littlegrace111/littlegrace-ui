@@ -82,8 +82,7 @@ class PriceForm extends Component {
                         placeholder="请输入金额"
                         defaultValue={this.props.editItem && this.props.editItem.price}
                         // onChange={this.onPriceChange}
-                        ref={ input => this.priceInput = input }
-                    />
+                        ref={ input => this.priceInput = input } />
                 </div>
                 <div className="form-group">
                     <label htmlFor="date">日期<span color="red">*</span></label>
