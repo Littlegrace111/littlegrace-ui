@@ -3,31 +3,20 @@ import styled from 'styled-components'
 export const SearchWrapper = styled.div`
     width: 100%;
     padding: 0 20px;
-    top: 500px;
 `
 
 export const SearchInputWrapper = styled.div`
     position: relative;
-    ${'' /* float: left; */}
-    .iconfont {
-        position: absolute;
-        right: 6px;
-        top: 13px;
-        width: 30px;
-        line-height: 30px;
-        border-radius: 15px;
-        text-align: center;
-        color: #999;
-
-        &.focused {
-            background: #777;
-            color: #fff;
-        }
+    width: 260px;
+    margin: 0 auto;
+    transition: width 0.2s ease-out;
+    &.focused {
+        width: 320px;
     }
 `;
 
 export const NavSearch = styled.input`
-    width: 160px;
+    width: 240px;
     height: 38px;
     padding: 0 30px 0 20px;
     box-sizing: border-box;
@@ -44,10 +33,34 @@ export const NavSearch = styled.input`
         color: #999;
     }
     &.focused {
-        width: 240px;
-        transition: width 0.2s ease-out;
+        width: 300px;
     }
 `;
+
+export const IconFont = styled.div `
+    position: absolute;
+    right: 6px;
+    top: 13px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    color: #999;
+    z-index: 0;
+    transition: all 0.2s ease-out;
+
+    svg {
+        position: absolute;
+        top: 2px;
+        left: 4px;
+        line-height: 30px;
+    }
+
+    &.focused {
+        background: #777;
+    }
+`
 
 export const SearchTipsWrapper = styled.div `
     position: absolute;
