@@ -117,7 +117,7 @@
 serviceWorker的使用；
 
 ## 20191101
-采用flex 布局实现响应式布局grid
+采用flex 布局实现响应式布局grid。
 
 ## 20191104
 axios 的网络请求没有做错误处理，axios需要重构。

@@ -98,7 +98,7 @@ class App extends Component {
 				// this.setState({
 				// 	items: { ...this.state.items, [newId]: item }
 				// }) 
-				return result
+				return result;
 			}),
 
 			updateItem: withLoading( async (item, id) => {
