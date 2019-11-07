@@ -3,25 +3,42 @@ import TabView, { Tab } from '../../component/tabViewV2'
 import CategorySelect from '../../component/categorySelect'
 import PriceForm from '../../component/priceForm'
 import Loader from '../../component/Loader'
-// import { priceList, categories } from '../../store/mockData'
-import WithContext from '../WithContext'
+import store from '../../store'
+import { getEditData, updateItem, createItem } from '../../store/actionCreator'
 
 class CreatePage extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        const { id } = this.props.match && this.props.match.params;
         this.state = {
+            id: id,
             selectCategoryId: null,
             selectTabType: 'income',
             editItem: null
         }
+        this.globalData = store.getState();
     }
 
     componentDidMount() {
-        const { id } = this.props.match && this.props.match.params
+        // const { id } = this.props.match && this.props.match.params
         // const { categories } = this.props.data
-        this.props.actions.getEditData(id).then( editItem => {
-            console.log('componentDidMount', editItem)
-            const { categories } = this.props.data
+        // this.props.actions.getEditData(id).then( editItem => {
+        //     console.log('componentDidMount', editItem)
+        //     const { categories } = this.props.data
+        //     if(editItem) {
+        //         this.setState({
+        //             selectCategoryId: editItem.cid,
+        //             selectTabType: categories[editItem.cid].type,
+        //             editItem: { ...editItem }
+        //         })
+        //     }
+        // })
+        this.unsubscribe = store.subscribe(() => {
+            this.globalData = store.getState();
+        })
+        getEditData(this.globalData, this.state.id)(store.dispatch).then( editItem => {
+            console.log('getEditData =', editItem);
+            const { categories } = this.globalData;
             if(editItem) {
                 this.setState({
                     selectCategoryId: editItem.cid,
@@ -30,6 +47,10 @@ class CreatePage extends Component {
                 })
             }
         })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     static tabList = [
@@ -50,19 +71,19 @@ class CreatePage extends Component {
     formSubmit = (data) => {
         console.log('formSubmit', data)
         const { selectTabType, selectCategoryId } = this.state
-        const { id } = this.props.match && this.props.match.params
+        const { id } = this.state;
         if(id) { 
-            this.props.actions.updateItem({...data, type: selectTabType, cid: selectCategoryId}, id)
+            updateItem({...data, type: selectTabType, cid: selectCategoryId}, id)
                 .then( result => {
-                    // console.log(result)
-                    this.props.history.push('/')
-                })
+                    console.log('updateItem =', result)
+                    this.props.history.push('/');
+                });
         } else {
-            this.props.actions.createItem({...data, type: selectTabType, cid: selectCategoryId})
+            createItem({...data, type: selectTabType, cid: selectCategoryId})
                 .then( result => {
-                    // console.log(result)
-                    this.props.history.push('/')
-                })
+                    console.log('createItem =', result)
+                    this.props.history.push('/');
+                });
         }
     }
 
@@ -81,7 +102,8 @@ class CreatePage extends Component {
     }
 
     render() {
-        const { categories, isLoading } = this.props.data
+        // const { categories, isLoading } = this.props.data
+        const { categories, isLoading } = this.globalData;
         const { selectTabType, selectCategoryId, editItem } = this.state
 
         // 根据tab筛选category
@@ -117,4 +139,4 @@ class CreatePage extends Component {
     }
 }
 
-export default WithContext(CreatePage);
+export default CreatePage;

@@ -10,11 +10,8 @@ import CreateBtn from '../../component/createBtn'
 import Loader from '../../component/Loader'
 import PieChart from '../../component/charts'
 import ScrollToTop from '../../component/scrollToTop'
-import Header from '../../component/header'
-
-// import { parseToYearAndMonth, padLeft } from '../../utility'
-// import { priceList, categoryList } from '../../store/mockData'
-import WithContext from '../WithContext'
+import store from '../../store'
+import { getInitialData, selectNewMonth } from '../../store/actionCreator'
 
 /**
  * State最小设计原则：DRY don't repeat yourself
@@ -28,12 +25,22 @@ class HomePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentTabIndex: 0
+            currentTabIndex: 0,
+            ...store.getState()
         }
+        // console.log(store.getState());
     }
 
     componentDidMount() {
-        this.props.actions.getInitialData()
+        // this.props.actions.getInitialData()
+        this.unsubscribe = store.subscribe(() => {
+            this.setState(store.getState());
+        })
+        getInitialData(this.state.currentYearMonth)(store.dispatch);
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     tabChange = (tabIndex) => {
@@ -57,8 +64,9 @@ class HomePage extends Component {
     }
 
     onChangeDate = (year, month) => {
-        console.log('onChangeDate', year, month)
-        this.props.actions.selectNewMonth(year, month)
+        console.log('onChangeDate', year, month);
+        // this.props.actions.selectNewMonth(year, month);
+        selectNewMonth(year, month)(store.dispatch); // 函数柯里化
     }
 
     calculateItems(items, type = 'outcome') {
@@ -80,8 +88,9 @@ class HomePage extends Component {
     }
 
     render() {
-        const { items, categories, currentYearMonth, isLoading } = this.props.data
-        const { currentTabIndex } = this.state
+        // const { items, categories, currentYearMonth, isLoading } = this.props.data
+        const { items, categories, currentYearMonth, isLoading } = this.state;
+        const { currentTabIndex } = this.state;
         
         const itemsWithCategory = Object.keys(items).map( id => {
             const newItem = {
@@ -170,4 +179,5 @@ class HomePage extends Component {
     }
 }
 
-export default WithContext(HomePage);
+// export default WithContext(HomePage);
+export default HomePage;

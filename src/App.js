@@ -114,7 +114,7 @@ class App extends Component {
 				// this.setState({
 				// 	items: {...this.state.items, [newItem.id] : newItem }
 				// })
-				return result
+				return result;
 			}),
 
 			deleteItem: withLoading( async (item) => {
