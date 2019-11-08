@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TabView, { Tab } from '../../component/tabViewV2'
 import CategorySelect from '../../component/categorySelect'
 import PriceForm from '../../component/priceForm'
-import Loader from '../../component/Loader'
+import Loader from '../../component/loader';
 import store from '../../store'
 import { getEditData, updateItem, createItem } from '../../store/actionCreator'
 

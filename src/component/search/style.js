@@ -25,7 +25,7 @@ export const NavSearch = styled.input`
     outline: none;
     border-radius: 19px;
     margin-top: 9px;
-    margin-left: 20px;
+    ${'' /* margin-left: 20px; */}
     background: #eee;
     font-size: 14px;
     color: #666;
@@ -40,7 +40,7 @@ export const NavSearch = styled.input`
 
 export const IconFont = styled.div `
     position: absolute;
-    right: 6px;
+    right: 16px;
     top: 13px;
     width: 30px;
     height: 30px;
@@ -65,7 +65,7 @@ export const IconFont = styled.div `
 
 export const TipsWrapper = styled.div `
     position: absolute;
-    left: 130px;
+    left: 90px;
     ${'' /* margin-top: 9px; */}
     padding: 20px 20px 10px 20px;
     width: 250px;
@@ -104,6 +104,8 @@ export const TipsTitle = styled.div `
 
         .iconfont {
             position: absolute;
+            width: 16px;
+            height: 16px;
             display: inline;
             top: 3px;
             left: -16px;

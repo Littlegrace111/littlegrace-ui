@@ -133,7 +133,7 @@ class App extends Component {
 					console.log('searchInfo response =', response);
 					if(response.status === 200) {
 						this.setState( {
-							tabList: [...response.data[0].tablist]
+							tabList: [...response.data[0].tabList]
 						})
 					}
 				})

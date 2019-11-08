@@ -7,7 +7,7 @@ import TabView, { Tab } from '../../component/tabViewV2'
 import MonthPicker from '../../component/monthPicker'
 import PriceCount from '../../component/priceCount'
 import CreateBtn from '../../component/createBtn'
-import Loader from '../../component/Loader'
+import Loader from '../../component/loader'
 import PieChart from '../../component/charts'
 import ScrollToTop from '../../component/scrollToTop'
 import store from '../../store'
@@ -28,11 +28,9 @@ class HomePage extends Component {
             currentTabIndex: 0,
             ...store.getState()
         }
-        // console.log(store.getState());
     }
 
     componentDidMount() {
-        // this.props.actions.getInitialData()
         this.unsubscribe = store.subscribe(() => {
             this.setState(store.getState());
         })

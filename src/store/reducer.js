@@ -5,8 +5,7 @@ const defaultState = {
     items: {},
 	categories: {},
 	currentYearMonth: parseToYearAndMonth(),
-	isLoading: false,
-	tabList: []
+	isLoading: false
 };
 
 export default (preState = defaultState, action = {}) => {

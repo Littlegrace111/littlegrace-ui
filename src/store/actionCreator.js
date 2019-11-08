@@ -69,7 +69,7 @@ export const getEditData = (preState, id) => {
                     categories: flattenArr(fetchedCategories.data),
                     isLoading: false
                 }
-            })
+            });
         }
         if (fetchedEditItem) {
             editItem = fetchedEditItem.data;

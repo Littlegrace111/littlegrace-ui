@@ -54,10 +54,20 @@ const BgImg = styled.div`
         }
     }
 
-    svg {
+    ${'' /* svg {
         position: absolute;
         left: 0px;
         bottom: -50px;
+    } */}
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 40px;
+        }
+
+        p {
+            font-size: 24px;
+        }
     }
 `;
 
@@ -72,7 +82,7 @@ class WelcomePage extends Component {
 
     componentDidMount() {
         console.log(WelcomePage.pageName, 'componentDidMount');
-        this.props.actions.getSearchInfo(1);
+        // this.props.actions.getSearchInfo(1);
     }
 
     render() {
@@ -83,7 +93,7 @@ class WelcomePage extends Component {
                     <div className="header-group">
                         <h1>Pain is inevitable, <br /> Suffering is optional.</h1>
                         <p>《菜根谭》里有句话：世利纷华，不近者为洁，近之而不染者，为尤洁。</p>
-                        <Search tabList={this.props.data.tabList}/>
+                        <Search />
                     </div>
                     <Wave />
                 </BgImg>
