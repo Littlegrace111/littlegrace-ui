@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TabView, { Tab } from '../../component/tabViewV2'
 import CategorySelect from '../../component/categorySelect'
 import PriceForm from '../../component/priceForm'
-import Loader from '../../component/Loader'
+import Loader from '../../component/loader'
 // import { priceList, categories } from '../../store/mockData'
 import WithContext from '../WithContext'
 

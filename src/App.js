@@ -64,7 +64,7 @@ class App extends Component {
 				if(Object.keys(categories).length === 0) {
 					promiseArr.push(axios.get('/categories'))
 				}
-				let editItem = null
+				let editItem = null;
 				if(id) {
 					editItem = items[id] // items 里面找不到指定id项，才去请求
 					!editItem && promiseArr.push( axios.get(`/items/${id}`))

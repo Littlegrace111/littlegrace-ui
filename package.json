@@ -68,7 +68,9 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
-    "start": "concurrently \"node scripts/start.js\" \"npm run mock\" ",
+    "dev": "concurrently \"node scripts/start.js\" \"npm run mock\" ",
+    "start": "./bin/start.sh",
+    "stop": "./bin/stop.sh",
     "build": "concurrently \"node scripts/build.js\" \"serve -s build\" ",
     "test": "node scripts/test.js",
     "mock": "json-server --watch db.json --port 3004"

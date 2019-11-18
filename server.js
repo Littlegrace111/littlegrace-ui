@@ -6,7 +6,7 @@ const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 const root = __dirname + '/build'
-const port = 3000
+const port = 7001
 
 server.use(express.static(root, { maxAge: 86400000 })) //24*60*60*1000 = 86400000
 server.use(middlewares)
@@ -19,5 +19,5 @@ server.get(reactRouterWhiteList, (request, response) => {
 
 server.use(router)
 server.listen(port, () => {
-    console.log('JSON Server is running')
+    console.log('JSON Server is running on ', port);
 })
