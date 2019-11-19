@@ -2,6 +2,9 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
@@ -69,8 +72,7 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "dev": "concurrently \"node scripts/start.js\" \"npm run mock\" ",
-    "start": "./bin/start.sh",
-    "stop": "./bin/stop.sh",
+    "start": "node server.js",
     "build": "concurrently \"node scripts/build.js\" \"serve -s build\" ",
     "test": "node scripts/test.js",
     "mock": "json-server --watch db.json --port 3004"

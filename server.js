@@ -6,7 +6,7 @@ const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 const root = __dirname + '/build'
-const port = 7001
+const port = process.env.LEANCLOUD_APP_PORT || 3004;
 
 server.use(express.static(root, { maxAge: 86400000 })) //24*60*60*1000 = 86400000
 server.use(middlewares)

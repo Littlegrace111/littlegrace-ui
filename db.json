@@ -197,14 +197,7 @@
       "type": "income"
     },
     {
-      "cid": "11",
-      "date": "2019-09-30",
-      "id": "_n89aepaqh",
-      "monthCategory": "2019-9",
-      "price": "800",
-      "timestamp": "1569801600",
-      "title": "英语家教",
-      "type": "income"
+      "id": "_n89aepaqh"
     },
     {
       "cid": "11",
@@ -264,6 +257,56 @@
       "price": "200",
       "timestamp": "1570838400",
       "title": "捡垃圾工艺活动",
+      "type": "outcome"
+    },
+    {
+      "cid": "2",
+      "date": "2019-09-01",
+      "id": "_ikk1afons",
+      "monthCategory": "2019-9",
+      "price": "300",
+      "timestamp": "1567296000",
+      "title": "中饭",
+      "type": "outcome"
+    },
+    {
+      "cid": "2",
+      "date": "2019-09-15",
+      "id": "_qubnafauj",
+      "monthCategory": "2019-9",
+      "price": "200",
+      "timestamp": "1568505600",
+      "title": "团建聚餐",
+      "type": "outcome"
+    },
+    {
+      "cid": "3",
+      "date": "2019-09-20",
+      "id": "_sfr1qbg3c",
+      "monthCategory": "2019-9",
+      "price": "3000",
+      "timestamp": "1568937600",
+      "title": "化妆品",
+      "type": "outcome"
+    },
+    {
+      "cid": "3",
+      "date": "2019-09-15",
+      "id": "_fumtf15bs",
+      "monthCategory": "2019-9",
+      "price": "2000",
+      "timestamp": "1568505600",
+      "title": "购买衣服",
+      "type": "outcome"
+    },
+    {
+      "cid": "2",
+      "date": "2019-09-21",
+      "id": "_768szb0o8",
+      "monthCategory": "2019-9",
+      "price": "100",
+      "timestamp": "1569024000",
+      "title": "火锅聚餐",
       "type": "outcome"
     }
   ],
