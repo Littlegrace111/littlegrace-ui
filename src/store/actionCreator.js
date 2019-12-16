@@ -4,7 +4,7 @@ import { flattenArr, ID, parseToYearAndMonth } from '../utility';
 
 export const getInitialData = (currentYearMonth) => {
     return async (dispatch) => {
-        console.log('getInitialData');
+        // console.log('getInitialData');
         const { year, month } = currentYearMonth;
         const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`;
         try {
@@ -105,17 +105,25 @@ export const updateItem = async (item, id) => {
 export const deleteItem = (item) => {
     return async (dispatch) => {
         try {
+            console.log('delete item');
             let response = await axios.delete(`/items/${item.id}`);
-            if (response && response.code == 200) {
-                dispatch({
-                    type: constants.DELETE_ITEM,
-                    data: {
-                        id: item.id
-                    }
-                })
-            }
+            console.log(response);
+            dispatch({
+                type: constants.DELETE_ITEM,
+                data: {
+                    id: item.id
+                }
+            })
+            // if (response && response.status == 200) {
+            //     dispatch({
+            //         type: constants.DELETE_ITEM,
+            //         data: {
+            //             id: item.id
+            //         }
+            //     })
+            // }
         } catch (err) {
-            throw err;
+            console.log(err);
         }
     }
 }

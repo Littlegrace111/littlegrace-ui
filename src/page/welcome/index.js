@@ -85,6 +85,10 @@ class WelcomePage extends Component {
         // this.props.actions.getSearchInfo(1);
     }
 
+    componentWillUnmount() {
+        // this.unsubscribe();
+    }
+
     render() {
         return (
             <Fragment>

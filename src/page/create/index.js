@@ -76,13 +76,13 @@ class CreatePage extends Component {
             updateItem({...data, type: selectTabType, cid: selectCategoryId}, id)
                 .then( result => {
                     console.log('updateItem =', result)
-                    this.props.history.push('/');
+                    this.props.history.push('/zhangben');
                 });
         } else {
             createItem({...data, type: selectTabType, cid: selectCategoryId})
                 .then( result => {
                     console.log('createItem =', result)
-                    this.props.history.push('/');
+                    this.props.history.push('/zhangben');
                 });
         }
     }

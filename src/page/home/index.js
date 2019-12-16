@@ -10,8 +10,9 @@ import CreateBtn from '../../component/createBtn'
 import Loader from '../../component/loader'
 import PieChart from '../../component/charts'
 import ScrollToTop from '../../component/scrollToTop'
-import store from '../../store'
-import { getInitialData, selectNewMonth } from '../../store/actionCreator'
+import store, { actionCreator } from '../../store'
+// import { getInitialData, selectNewMonth } from '../../store/actionCreator'
+import { connect } from 'react-redux'
 
 /**
  * State最小设计原则：DRY don't repeat yourself
@@ -25,20 +26,13 @@ class HomePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentTabIndex: 0,
-            ...store.getState()
+            currentTabIndex: 0
         }
     }
 
     componentDidMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState(store.getState());
-        })
-        getInitialData(this.state.currentYearMonth)(store.dispatch);
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
+        const { currentYearMonth } = this.props;
+        this.props.getInitialData(currentYearMonth);
     }
 
     tabChange = (tabIndex) => {
@@ -48,24 +42,23 @@ class HomePage extends Component {
         })
     }
 
-    createItem = () => {
-        console.log('createItem');
-        this.props.history.push('/create')
-    }
+    // createItem = () => {
+    //     console.log('createItem');
+    //     this.props.history.push('/create')
+    // }
 
-    modifyItem = (modifyItem) => {
-        this.props.history.push(`/edit/${modifyItem.id}`)
-    }
+    // modifyItem = (modifyItem) => {
+    //     this.props.history.push(`/edit/${modifyItem.id}`)
+    // }
 
-    deleteItem = (deleteItem) => {
-        this.props.actions.deleteItem(deleteItem)
-    }
+    // deleteItem = (deleteItem) => {
+    //     actionCreator.deleteItem(deleteItem)(store.dispatch)
+    // }
 
-    onChangeDate = (year, month) => {
-        console.log('onChangeDate', year, month);
-        // this.props.actions.selectNewMonth(year, month);
-        selectNewMonth(year, month)(store.dispatch); // 函数柯里化
-    }
+    // onChangeDate = (year, month) => {
+    //     console.log('onChangeDate', year, month);
+    //     actionCreator.selectNewMonth(year, month)(store.dispatch); // 函数柯里化
+    // }
 
     calculateItems(items, type = 'outcome') {
         const CategoryMap = {}
@@ -86,8 +79,9 @@ class HomePage extends Component {
     }
 
     render() {
+        console.log('home render')
         // const { items, categories, currentYearMonth, isLoading } = this.props.data
-        const { items, categories, currentYearMonth, isLoading } = this.state;
+        const { items, categories, currentYearMonth, isLoading } = this.props;
         const { currentTabIndex } = this.state;
         
         const itemsWithCategory = Object.keys(items).map( id => {
@@ -97,11 +91,7 @@ class HomePage extends Component {
             }
             return newItem
         })
-        console.log(this.calculateItems(itemsWithCategory))
-        // 根据当前日期过滤items
-        // const currentDate = currentYearMonth.year + '-' + padLeft(currentYearMonth.month) 
-        // itemsWithCategory = itemsWithCategory.filter(item => item.date.indexOf(currentDate) !== -1)
-        
+      
         let totalInCome = 0, totalOutCome = 0;
         itemsWithCategory.forEach(item => {
             if(item.category.type === 'income') {
@@ -119,7 +109,7 @@ class HomePage extends Component {
                     <MonthPicker
                         year={currentYearMonth.year}
                         month={currentYearMonth.month}
-                        onChange={this.onChangeDate}
+                        onChange={this.props.onChangeDate}
                     />
                     <PriceCount
                         inCome={totalInCome}
@@ -149,8 +139,8 @@ class HomePage extends Component {
                     { currentTabIndex === 0 &&
                         <ListView
                             itemList={itemsWithCategory}
-                            onModifyItem={(item) => this.modifyItem(item)}
-                            onDeleteItem={(item) => this.deleteItem(item)}
+                            onModifyItem={(item) => this.props.modifyItem(item)}
+                            onDeleteItem={(item) => this.props.deleteItem(item)}
                         />
                     }
                     { currentTabIndex === 1 &&
@@ -168,14 +158,46 @@ class HomePage extends Component {
                         </Fragment>    
                     }
                     <CreateBtn 
-                        onCreateItem={this.createItem}
+                        onCreateItem={this.props.createItem}
                     />
                 </div>
-                <ScrollToTop />
+                {/* <ScrollToTop /> */}
             </div>
         )
     }
 }
 
 // export default WithContext(HomePage);
-export default HomePage;
+
+// 定义mapStateToProps: 组件将会监听Redux Store的变化；
+// 只要Redux Store 发生变化，mapStateToProps函数就会被调用；
+// mapStateToProps 必须返回一个纯对象，这个对象会注入到组件的Props里；
+const mapStateToProps = (state) => ({
+    items: state.items,
+    categories: state.categories,
+    currentYearMonth: state.currentYearMonth,
+    isLoading: state.isLoading
+})
+
+// dispatch注入到props
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        modifyItem(item) {
+            ownProps.history.push(`/edit/${item.id}`)
+        },
+        deleteItem(item) {
+            dispatch(actionCreator.deleteItem(item))
+        },
+        createItem() {
+            ownProps.history.push('/create')
+        },
+        getInitialData(currentYearMonth) {
+            dispatch(actionCreator.getInitialData(currentYearMonth));
+        },
+        onChangeDate(year, month) {
+            dispatch(actionCreator.selectNewMonth(year, month))
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

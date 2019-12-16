@@ -94,7 +94,12 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', throttle(this.handleScroll, 200, true));
+        this.scrollEvent = throttle(this.handleScroll, 200, true);
+        window.addEventListener('scroll', this.scrollEvent);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollEvent);
     }
 
     // 在函数定义时bind(this)
