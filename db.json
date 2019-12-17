@@ -1,5 +1,26 @@
 {
-  "items": [],
+  "items": [
+    {
+      "title": "hello world",
+      "price": 2000,
+      "date": "2019-12-17",
+      "type": "income",
+      "cid": "11",
+      "id": "_5xluetswx",
+      "monthCategory": "2019-12",
+      "timestamp": 1576540800
+    },
+    {
+      "title": "和姐们吃饭",
+      "price": 200,
+      "date": "2019-12-17",
+      "type": "outcome",
+      "cid": "2",
+      "id": "_5qqvwuwfu",
+      "monthCategory": "2019-12",
+      "timestamp": 1576540800
+    }
+  ],
   "categories": [
     {
       "name": "旅行",

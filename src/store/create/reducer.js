@@ -1,0 +1,4 @@
+const defaultState = {
+    editItem: null
+}
+

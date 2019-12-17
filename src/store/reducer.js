@@ -5,7 +5,8 @@ const defaultState = {
     items: {},
 	categories: {},
 	currentYearMonth: parseToYearAndMonth(),
-	isLoading: false
+    isLoading: false,
+    editItem: null,
 };
 
 export default (preState = defaultState, action = {}) => {
@@ -19,6 +20,9 @@ export default (preState = defaultState, action = {}) => {
             return { ...preState, ...action.data };
         }
         case constants.GET_EDIT_DATA: {
+            return { ...preState, ...action.data };
+        }
+        case constants.GET_CATEGORIES: {
             return { ...preState, ...action.data };
         }
         case constants.DELETE_ITEM: {

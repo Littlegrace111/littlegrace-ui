@@ -4,7 +4,6 @@ import { flattenArr, ID, parseToYearAndMonth } from '../utility';
 
 export const getInitialData = (currentYearMonth) => {
     return async (dispatch) => {
-        // console.log('getInitialData');
         const { year, month } = currentYearMonth;
         const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`;
         try {
@@ -25,20 +24,18 @@ export const getInitialData = (currentYearMonth) => {
     }
 }
 
-
 export const selectNewMonth = (year, month) => {
     return async (dispatch) => {
         const getItemURLWithQuery = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`;
         try {
-            const arrays = await Promise.all([axios.get(getItemURLWithQuery)]);
-            console.log('selectNewMonth', arrays);
+            const arrays = await axios.get(getItemURLWithQuery);
+            // console.log('selectNewMonth', arrays);
             const [itemsWithFilter] = arrays;
             dispatch({
                 type: constants.SELECT_NEW_MONTH,
                 data: {
                     items: flattenArr(itemsWithFilter.data),
-                    currentYearMonth: { year, month },
-                    isLoading: false
+                    currentYearMonth: { year, month }
                 }
             })
         } catch (err) {
@@ -47,59 +44,86 @@ export const selectNewMonth = (year, month) => {
     }
 }
 
-export const getEditData = (preState, id) => {
-    const { categories, items } = preState;
-    const promiseArr = [];
+export const getCategories = () => {
     return async (dispatch) => {
-        if (Object.keys(categories).length === 0) {
-            promiseArr.push(axios.get('/categories'))
-        }
-        let editItem = null;
-        if (id) {
-            editItem = items[id]; // items 里面找不到指定id，才去请求
-            !editItem && promiseArr.push(axios.get(`/items/${id}`));
-        }
-        const responseArr = await Promise.all(promiseArr);
-        console.log(responseArr);
-        const [fetchedCategories, fetchedEditItem] = responseArr;
-        if (fetchedCategories) {
+        try {
+            const categories = await axios.get('/categories')
             dispatch({
-                type: constants.GET_EDIT_DATA,
-                data: {
-                    categories: flattenArr(fetchedCategories.data),
-                    isLoading: false
+                type: constants.GET_CATEGORIES,
+                data: { 
+                    categories: flattenArr(categories.data),
                 }
-            });
+            })
+        } catch(err) {
+            console.log(err)
         }
-        if (fetchedEditItem) {
-            editItem = fetchedEditItem.data;
-        }
-        return editItem;
     }
 }
 
-export const createItem = async (item) => {
-    const newId = ID();
-    item['id'] = newId;
-    const parseData = parseToYearAndMonth(item.data);
-    const monthCategory = `${parseData.year}-${parseData.month}`;
-    item['monthCategory'] = monthCategory;
-    const date = new Date(item.date);
-    item.timestamp = Math.floor(new Date(date).getTime() / 1000);
-    const result = await axios.post('/items', item);
-    return result;
+export const setEditItem = (item) => ({
+    type: constants.GET_EDIT_DATA,
+    data: {
+        editItem: item,
+    }
+})
+
+export const getEditData = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`/items/${id}`);
+            console.log('getEditData, response =', response); 
+            dispatch({
+                type: constants.GET_EDIT_DATA,
+                data: {
+                    editItem: response.data,
+                }
+            });
+        } catch(err) {
+            console.log(err)
+        }
+    }
+}
+
+export const createItem = (item) => {
+    return async (dispatch) => {
+        try {
+            const newId = ID();
+            item['id'] = newId;
+            const parseData = parseToYearAndMonth(item.data);
+            const monthCategory = `${parseData.year}-${parseData.month}`;
+            item['monthCategory'] = monthCategory;
+            const date = new Date(item.date);
+            item.timestamp = Math.floor(new Date(date).getTime() / 1000);
+            const result = await axios.post('/items', item);
+            console.log('createItem =', result)
+            dispatch({
+                type: constants.CREATE_ITEM
+            })
+        } catch(err) {
+            console.log(err)
+        }
+    }
 }
 
 export const updateItem = async (item, id) => {
-    const parseDate = parseToYearAndMonth(item.date);
-    const monthCategory = `${parseDate.year}-${parseDate.month}`;
-    item['monthCategory'] = monthCategory;
-    const date = new Date(item.date);
-    item.timestamp = Math.floor(new Date(date).getTime() / 1000); // 根据时间排序
-    item.id = id;
-    console.log('newItem', item)
-    const result = await axios.put(`/items/${id}`, item)
-    return result;
+    return async (dispatch) => {
+        try {
+            const parseDate = parseToYearAndMonth(item.date);
+            const monthCategory = `${parseDate.year}-${parseDate.month}`;
+            item['monthCategory'] = monthCategory;
+            const date = new Date(item.date);
+            item.timestamp = Math.floor(new Date(date).getTime() / 1000); // 根据时间排序
+            item.id = id;
+            console.log('updateItem', item)
+            const result = await axios.put(`/items/${id}`, item)
+            console.log('updateItem, result =', result)
+            dispatch({
+                type: constants.UPDATE_ITEM
+            })
+        } catch(err) {
+            console.log(err)
+        }
+    }
 }
 
 export const deleteItem = (item) => {
@@ -114,14 +138,6 @@ export const deleteItem = (item) => {
                     id: item.id
                 }
             })
-            // if (response && response.status == 200) {
-            //     dispatch({
-            //         type: constants.DELETE_ITEM,
-            //         data: {
-            //             id: item.id
-            //         }
-            //     })
-            // }
         } catch (err) {
             console.log(err);
         }
