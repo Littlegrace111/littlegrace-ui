@@ -55,3 +55,26 @@ const WithContext = (Component) => {
 }
 ```
 
+类组件的复用有一定的成本，需要使用高阶函数对他进行一定的封装；
+
+render props 高度定制化的方式；
+
+通过hooks引进一些副作用；
+
+## React 设计模式
+- 无状态组件 / 表现型组件
+- 有状态组件 / 容器型组件
+- render模式组件 
+- 高阶组件
+  
+### render 模式
+render props 是一种在不重复代码的情况下共享组件功能的设计模式。
+
+### HOC 模式
+Higher-order components 
+
+例如 react-redux的connect方法，react-router中的withRouter都采用了HOC模式
+
+[render props 和 HOC](https://www.jianshu.com/p/ff6b3008820a)
+
+react-hooks不会对代码有破坏性的改动
