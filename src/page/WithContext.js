@@ -2,8 +2,7 @@ import React from 'react'
 import { AppContext } from '../App'
 
 /**
- * HOC 高阶组件
- * 高阶组件是一个函数
+ * Render Props
  * @param {UI} Component 
  */
 const WithContext = (Component) => {
